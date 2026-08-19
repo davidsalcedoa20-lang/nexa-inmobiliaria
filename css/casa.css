@@ -1,0 +1,149 @@
+/* Casa detail — layout específico */
+
+.casa-hero {
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+.casa-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.9fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.casa-details {
+  padding-top: 24px;
+  padding-bottom: 64px;
+}
+
+.casa-details__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.casa-details__text {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 0.98rem;
+  margin-bottom: 12px;
+}
+
+.casa-map {
+  margin-top: 16px;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  min-height: 180px;
+}
+
+.casa-plan {
+  background: #F7F8FA;
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  border: 1px solid var(--border-soft);
+}
+
+.casa-plan__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.casa-plan__media {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+  min-height: 220px;
+}
+
+.casa-3d {
+  background: #F5F6F8;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.casa-3d__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.75fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.casa-rooms {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.casa-rooms__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.casa-rooms__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.casa-rooms__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: background var(--transition), color var(--transition);
+}
+
+.casa-rooms__item:hover,
+.casa-rooms__item.is-active {
+  background: var(--beige);
+  color: var(--gold-dark);
+}
+
+.casa-rooms__item svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-soft);
+}
+
+.casa-rooms__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-strip--casa {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .casa-hero__grid,
+  .casa-details__grid,
+  .casa-3d__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-strip--casa {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .feature-strip--casa {
+    grid-template-columns: 1fr 1fr;
+  }
+}

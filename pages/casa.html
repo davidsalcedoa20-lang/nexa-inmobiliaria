@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detalle de casa Nexa Inmobiliaria — galería, planos, 3D y realidad aumentada.">
+  <title>Casa | Nexa Inmobiliaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/detalle.css">
+  <link rel="stylesheet" href="../css/casa.css">
+</head>
+<body data-page="casa" data-casa-id="el-encanto">
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="../index.html" class="logo" aria-label="Nexa Inmobiliaria — Inicio">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2.5L35.5 11.5V28.5L20 37.5L4.5 28.5V11.5L20 2.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M20 8L29.5 13.5V26.5L20 32L10.5 26.5V13.5L20 8Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" opacity="0.55"/>
+            <path d="M14 22.5V18.2L20 14.5L26 18.2V22.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.5 22.5H22.5V18.8H17.5V22.5Z" fill="currentColor" opacity="0.85"/>
+          </svg>
+        </span>
+        <span class="logo__text">
+          <span class="logo__name">NEXA</span>
+          <span class="logo__tag">INMOBILIARIA</span>
+        </span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navegación principal">
+        <ul class="nav__list">
+          <li><a href="../index.html" class="nav__link">Inicio</a></li>
+          <li><a href="../index.html#casas" class="nav__link is-active">Casas</a></li>
+          <li><a href="../index.html#lotes" class="nav__link">Lotes</a></li>
+          <li><a href="../index.html#sobreplano" class="nav__link">Sobreplano</a></li>
+          <li><a href="../index.html#nosotros" class="nav__link">Nosotros</a></li>
+          <li><a href="../index.html#contacto" class="nav__link">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <a href="https://wa.me/" class="header__whatsapp" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2.4C6.7 2.4 2.4 6.7 2.4 12c0 1.7.4 3.3 1.3 4.7L2 22l5.5-1.6c1.4.7 2.9 1.1 4.5 1.1 5.3 0 9.6-4.3 9.6-9.6S17.3 2.4 12 2.4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.6 9.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.3l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.3.5.8 1.1 1.4 1.5.5.4 1 .7 1.5.9.2.1.3 0 .4-.1l.6-.7c.1-.2.3-.2.5-.1l1.8.7c.2.1.3.2.3.5v.5c0 .2 0 .4-.2.6-.3.4-.8.7-1.3.8-.5.1-1.1 0-1.7-.2-1.3-.4-2.6-1.2-3.7-2.3-1.1-1.1-1.9-2.4-2.3-3.8-.2-.6-.3-1.2-.2-1.7.1-.5.4-1 .8-1.3Z" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="header__menu" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+          <span class="header__menu-bar"></span>
+          <span class="header__menu-bar"></span>
+          <span class="header__menu-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="detail-page casa-page">
+    <section class="casa-hero section">
+      <div class="container casa-hero__grid">
+        <div class="detail-gallery">
+          <a href="../index.html#casas" class="detail-back">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Volver a casas
+          </a>
+
+          <div class="detail-gallery__main img-placeholder" id="casaMainMedia" role="img" aria-label="Imagen próxima de la casa">
+            <span class="img-placeholder__label">IMAGEN PRÓXIMAMENTE</span>
+            <span class="detail-gallery__status" id="casaStatusBadge">
+              <span class="detail-gallery__status-dot" aria-hidden="true"></span>
+              <span id="casaStatusText">Casa disponible</span>
+            </span>
+            <button type="button" class="detail-gallery__nav detail-gallery__nav--prev" id="casaPrev" aria-label="Imagen anterior">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="detail-gallery__nav detail-gallery__nav--next" id="casaNext" aria-label="Imagen siguiente">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+          <div class="detail-gallery__thumbs" id="casaThumbs" role="tablist" aria-label="Galería de la casa">
+            <!-- filled by JS -->
+          </div>
+        </div>
+
+        <aside class="detail-summary">
+          <div class="detail-summary__top">
+            <span class="lote-status" id="casaStatusPill">
+              <span class="lote-status__dot" aria-hidden="true"></span>
+              <span id="casaStatusPillText">Casa disponible</span>
+            </span>
+            <button type="button" class="property-card__fav" aria-label="Añadir a favoritos" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8.2a3.8 3.8 0 0 1 7 2.6C19 15.6 12 20 12 20Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+          <h1 class="detail-summary__title" id="casaName">Casa Campestre El Encanto</h1>
+          <p class="detail-summary__location" id="casaLocation">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="11" r="2" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span></span>
+          </p>
+
+          <ul class="detail-specs detail-specs--4" id="casaSpecs">
+            <li class="detail-specs__item">
+              <span class="detail-specs__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V10l8-5 8 5v9H4Z" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              <span class="detail-specs__label">Habitaciones</span>
+              <span class="detail-specs__value" id="specBedrooms">3</span>
+            </li>
+            <li class="detail-specs__item">
+              <span class="detail-specs__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14v7H5v-7Z" stroke="currentColor" stroke-width="1.5"/><path d="M8 12V9a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              <span class="detail-specs__label">Baños</span>
+              <span class="detail-specs__value" id="specBaths">2</span>
+            </li>
+            <li class="detail-specs__item">
+              <span class="detail-specs__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V9l8-5 8 5v10H4Z" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              <span class="detail-specs__label">Área construida</span>
+              <span class="detail-specs__value" id="specBuilt">186 m²</span>
+            </li>
+            <li class="detail-specs__item">
+              <span class="detail-specs__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              <span class="detail-specs__label">Área del lote</span>
+              <span class="detail-specs__value" id="specLot">450 m²</span>
+            </li>
+          </ul>
+
+          <span class="detail-price-label" id="casaPriceLabel">Desde</span>
+          <p class="detail-price" id="casaPrice">$850.000.000 COP</p>
+
+          <div class="detail-summary__actions">
+            <button type="button" class="btn btn--dark btn--block" id="btnCasa3D" data-action="casa-3d">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5 20 8v8l-8 4.5L4 16V8l8-4.5Z" stroke="currentColor" stroke-width="1.5"/><path d="M12 12v8.5M12 12 4 8M12 12l8-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Explorar en 3D
+              <span class="btn__soon" hidden>Próximamente</span>
+            </button>
+            <button type="button" class="btn btn--gold btn--block" id="btnCasaAR" data-action="casa-ar" aria-disabled="true">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4H4v3M17 4h3v3M7 20H4v-3M17 20h3v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 8.5 16 11v5l-4 2.5L8 16v-5l4-2.5Z" stroke="currentColor" stroke-width="1.5"/></svg>
+              Ver en Realidad Aumentada
+              <span class="btn__soon">Próximamente</span>
+            </button>
+            <button type="button" class="btn btn--outline btn--block" data-action="info">Solicitar información</button>
+            <a href="https://wa.me/" class="btn btn--outline btn--block" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="casa-details section" id="detalles">
+      <div class="container casa-details__grid">
+        <div>
+          <div class="detail-tabs" role="tablist" aria-label="Información de la casa">
+            <button type="button" class="detail-tabs__btn is-active" data-tab="descripcion" role="tab" aria-selected="true">Descripción</button>
+            <button type="button" class="detail-tabs__btn" data-tab="caracteristicas" role="tab" aria-selected="false">Características</button>
+            <button type="button" class="detail-tabs__btn" data-tab="planos" role="tab" aria-selected="false">Planos</button>
+            <button type="button" class="detail-tabs__btn" data-tab="acabados" role="tab" aria-selected="false">Acabados</button>
+            <button type="button" class="detail-tabs__btn" data-tab="ubicacion" role="tab" aria-selected="false">Ubicación</button>
+          </div>
+
+          <div class="detail-tab-panel is-active" id="tab-descripcion" role="tabpanel">
+            <p class="casa-details__text" id="casaDescription"></p>
+            <ul class="detail-check-list" id="casaFeatures"></ul>
+          </div>
+          <div class="detail-tab-panel" id="tab-caracteristicas" role="tabpanel" hidden>
+            <ul class="detail-check-list" id="casaFeaturesExtra"></ul>
+          </div>
+          <div class="detail-tab-panel" id="tab-planos" role="tabpanel" hidden>
+            <p class="casa-details__text">Consulta el plano arquitectónico de la vivienda. El archivo definitivo se conectará aquí.</p>
+          </div>
+          <div class="detail-tab-panel" id="tab-acabados" role="tabpanel" hidden>
+            <ul class="detail-check-list" id="casaFinishes"></ul>
+          </div>
+          <div class="detail-tab-panel" id="tab-ubicacion" role="tabpanel" hidden>
+            <p class="casa-details__text" id="casaUbicacionText"></p>
+            <div class="casa-map img-placeholder" role="img" aria-label="Mapa próximo">
+              <span class="img-placeholder__label">MAPA PRÓXIMAMENTE</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="casa-plan">
+          <h3 class="casa-plan__title">Plano de la casa</h3>
+          <div class="casa-plan__media img-placeholder" role="img" aria-label="Plano próximo">
+            <span class="img-placeholder__label">PLANO PRÓXIMAMENTE</span>
+          </div>
+          <button type="button" class="btn btn--outline btn--block" data-action="plano">Ver plano completo</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="casa-3d section" id="conoce" aria-labelledby="conoce-title">
+      <div class="container">
+        <header class="section-header section-header--left reveal">
+          <h2 class="section-title" id="conoce-title">Conoce tu futura casa</h2>
+          <div class="section-accent" aria-hidden="true"></div>
+          <p class="section-subtitle">Explora el modelo en 3D y prepárate para verlo en realidad aumentada.</p>
+        </header>
+
+        <div class="casa-3d__grid reveal">
+          <div
+            class="viewer-shell"
+            id="casaViewer"
+            data-viewer="ready"
+            data-glb=""
+            data-usdz=""
+            aria-label="Visor 3D de la casa"
+          >
+            <div class="viewer-shell__tools" aria-label="Herramientas">
+              <button type="button" class="viewer-shell__tool" title="Rotar" aria-label="Rotar"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18 3.5V7h-3.5M6 20.5V17h3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+              <button type="button" class="viewer-shell__tool" title="Zoom" aria-label="Zoom"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l4 4M9 11h4M11 9v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+              <button type="button" class="viewer-shell__tool" title="Interior" aria-label="Interior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11H4Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+              <button type="button" class="viewer-shell__tool" title="Medidas" aria-label="Medidas"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h16v8H4V8Z" stroke="currentColor" stroke-width="1.5"/><path d="M8 8v3M12 8v2M16 8v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+            </div>
+            <div class="viewer-shell__stage img-placeholder" id="casaViewerStage" data-slot="model-viewer">
+              <span class="img-placeholder__label">MODELO 3D PRÓXIMAMENTE</span>
+            </div>
+            <div class="viewer-shell__modes" role="group" aria-label="Modo de vista">
+              <button type="button" class="viewer-shell__mode is-active" data-mode="maqueta">Maqueta</button>
+              <button type="button" class="viewer-shell__mode" data-mode="exterior">Exterior</button>
+              <button type="button" class="viewer-shell__mode" data-mode="interior">Interior</button>
+            </div>
+          </div>
+
+          <aside class="casa-rooms">
+            <h3 class="casa-rooms__title">Explora cada espacio</h3>
+            <ul class="casa-rooms__list" id="casaRooms"></ul>
+            <div class="casa-rooms__actions">
+              <a href="#conoce" class="btn btn--dark btn--block" id="link3D">Ver en 3D</a>
+              <button type="button" class="btn btn--gold btn--block is-soon" id="linkAR" aria-disabled="true">Ver en AR <span class="btn__soon">Próximamente</span></button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="casa-features section" aria-labelledby="casa-feat-title">
+      <div class="container">
+        <h2 class="visually-hidden" id="casa-feat-title">Características visuales</h2>
+        <ul class="feature-strip feature-strip--casa" id="casaFeatureStrip">
+          <li class="feature-strip__item"><span class="feature-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V10l8-5 8 5v9H4Z" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="feature-strip__label" id="stripBeds">3 Habitaciones</span></li>
+          <li class="feature-strip__item"><span class="feature-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14v7H5v-7Z" stroke="currentColor" stroke-width="1.5"/><path d="M8 12V9a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="feature-strip__label" id="stripBaths">2 Baños</span></li>
+          <li class="feature-strip__item"><span class="feature-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="feature-strip__label" id="stripParking">2 Parqueaderos</span></li>
+          <li class="feature-strip__item"><span class="feature-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V9l8-5 8 5v10H4Z" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="feature-strip__label" id="stripBuilt">186 m² construidos</span></li>
+          <li class="feature-strip__item"><span class="feature-strip__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="feature-strip__label" id="stripLot">450 m² de lote</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="cta-section section" id="contacto">
+      <div class="container">
+        <div class="detail-cta reveal">
+          <div class="detail-cta__media img-placeholder" aria-hidden="true"><span class="img-placeholder__label">IMAGEN PRÓXIMAMENTE</span></div>
+          <div class="detail-cta__content">
+            <h2 class="detail-cta__title">¿Te imaginas viviendo aquí?</h2>
+            <p class="detail-cta__text">Nuestro equipo te acompañará en cada paso para que tomes la mejor decisión.</p>
+          </div>
+          <div class="detail-cta__actions">
+            <button type="button" class="btn btn--gold" data-action="visita">Agendar visita</button>
+            <a href="https://wa.me/" class="btn btn--ghost-light" target="_blank" rel="noopener noreferrer">Hablar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">&copy; <span id="year"></span> Nexa Inmobiliaria. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="../js/casas-data.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/casa.js" defer></script>
+</body>
+</html>

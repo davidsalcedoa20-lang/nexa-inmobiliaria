@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lote en Reservas del Lago Country House — Cúcuta. 179 m², único conjunto residencial con lago artificial. Explora la propuesta de casa en 3D y realidad aumentada con Nexa Inmobiliaria.">
+  <title>Lote Reservas del Lago Country House | Nexa Inmobiliaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/lote.css">
+  <link rel="stylesheet" href="../css/lote-reservas-del-lago.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+</head>
+<body data-page="lote">
+  <!-- ========== HEADER ========== -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="../index.html" class="logo" aria-label="Nexa Inmobiliaria — Inicio">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2.5L35.5 11.5V28.5L20 37.5L4.5 28.5V11.5L20 2.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M20 8L29.5 13.5V26.5L20 32L10.5 26.5V13.5L20 8Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" opacity="0.55"/>
+            <path d="M14 22.5V18.2L20 14.5L26 18.2V22.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.5 22.5H22.5V18.8H17.5V22.5Z" fill="currentColor" opacity="0.85"/>
+          </svg>
+        </span>
+        <span class="logo__text">
+          <span class="logo__name">NEXA</span>
+          <span class="logo__tag">INMOBILIARIA</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navegación principal">
+        <ul class="nav__list">
+          <li><a href="../index.html" class="nav__link">Inicio</a></li>
+          <li><a href="../index.html#casas" class="nav__link">Casas</a></li>
+          <li><a href="../index.html#lotes" class="nav__link is-active">Lotes</a></li>
+          <li><a href="../index.html#sobreplano" class="nav__link">Sobreplano</a></li>
+          <li><a href="../index.html#nosotros" class="nav__link">Nosotros</a></li>
+          <li><a href="../index.html#contacto" class="nav__link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <a href="https://wa.me/" class="header__whatsapp" aria-label="Contactar por WhatsApp" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2.4C6.7 2.4 2.4 6.7 2.4 12c0 1.7.4 3.3 1.3 4.7L2 22l5.5-1.6c1.4.7 2.9 1.1 4.5 1.1 5.3 0 9.6-4.3 9.6-9.6S17.3 2.4 12 2.4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.6 9.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.3l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.3.5.8 1.1 1.4 1.5.5.4 1 .7 1.5.9.2.1.3 0 .4-.1l.6-.7c.1-.2.3-.2.5-.1l1.8.7c.2.1.3.2.3.5v.5c0 .2 0 .4-.2.6-.3.4-.8.7-1.3.8-.5.1-1.1 0-1.7-.2-1.3-.4-2.6-1.2-3.7-2.3-1.1-1.1-1.9-2.4-2.3-3.8-.2-.6-.3-1.2-.2-1.7.1-.5.4-1 .8-1.3Z" fill="currentColor"/>
+          </svg>
+        </a>
+        <button class="header__menu" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+          <span class="header__menu-bar"></span>
+          <span class="header__menu-bar"></span>
+          <span class="header__menu-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="lote-page">
+    <!-- ========== HERO: GALERÍA + INFO ========== -->
+    <section class="lote-hero" aria-labelledby="lote-title">
+      <div class="container lote-hero__grid">
+        <!-- Gallery -->
+        <div class="lote-gallery">
+          <a href="../index.html#lotes" class="lote-gallery__back">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Volver a lotes
+          </a>
+
+          <div class="lote-gallery__main img-placeholder has-image" id="loteMainMedia" role="img" aria-label="Vista principal del lote en Reservas del Lago Country House">
+            <img id="loteMainImg" src="../assets/images/lote-reservas-del-lago.png" alt="Lote en Reservas del Lago Country House, Cúcuta">
+            <div class="lote-gallery__overlay" aria-hidden="true">
+              <span class="lote-gallery__area">179 m²</span>
+            </div>
+          </div>
+
+          <div class="lote-gallery__thumbs" role="tablist" aria-label="Galería del lote">
+            <button type="button" class="lote-thumb is-active" role="tab" aria-selected="true" data-thumb="0" data-src="../assets/images/lote-reservas-del-lago.png" aria-label="Foto del lote">
+              <span class="img-placeholder has-image lote-thumb__media"><img src="../assets/images/lote-reservas-del-lago.png" alt="Foto del lote"></span>
+            </button>
+            <button type="button" class="lote-thumb" role="tab" aria-selected="false" data-thumb="1" data-src="../assets/images/casa-modelo-render.png" aria-label="Propuesta 3D de la casa modelo">
+              <span class="img-placeholder has-image lote-thumb__media"><img src="../assets/images/casa-modelo-render.png" alt="Render 3D de la casa modelo"></span>
+            </button>
+            <button type="button" class="lote-thumb lote-thumb--more" role="tab" aria-selected="false" data-thumb="2" aria-label="Más fotos próximamente" disabled>
+              <span class="img-placeholder lote-thumb__media"><span class="img-placeholder__label">MÁS FOTOS PRÓXIMAMENTE</span></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary card -->
+        <aside class="lote-summary">
+          <div class="lote-summary__top">
+            <span class="lote-status">
+              <span class="lote-status__dot" aria-hidden="true"></span>
+              Lote disponible
+            </span>
+            <button type="button" class="lote-summary__fav property-card__fav" aria-label="Añadir a favoritos" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8.2a3.8 3.8 0 0 1 7 2.6C19 15.6 12 20 12 20Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <h1 class="lote-summary__title" id="lote-title">Lote en Reservas del Lago Country House</h1>
+          <p class="lote-summary__location">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10Z" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="12" cy="11" r="2" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            Reservas del Lago Country House, Cúcuta
+          </p>
+
+          <ul class="lote-specs">
+            <li class="lote-specs__item">
+              <span class="lote-specs__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="16" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="1.5"/></svg>
+              </span>
+              <span class="lote-specs__meta">
+                <span class="lote-specs__label">Área total</span>
+                <span class="lote-specs__value">179 m²</span>
+              </span>
+            </li>
+            <li class="lote-specs__item">
+              <span class="lote-specs__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4c-1.5 3-4 5-4 8a4 4 0 0 0 8 0c0-3-2.5-5-4-8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 16v4M8 20h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </span>
+              <span class="lote-specs__meta">
+                <span class="lote-specs__label">Entorno</span>
+                <span class="lote-specs__value">Lago artificial</span>
+              </span>
+            </li>
+            <li class="lote-specs__item">
+              <span class="lote-specs__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 20h16M6 20V10l6-5 6 5v10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.5"/></svg>
+              </span>
+              <span class="lote-specs__meta">
+                <span class="lote-specs__label">Tipo</span>
+                <span class="lote-specs__value">Lote residencial</span>
+              </span>
+            </li>
+            <li class="lote-specs__item">
+              <span class="lote-specs__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="11" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
+              </span>
+              <span class="lote-specs__meta">
+                <span class="lote-specs__label">Ciudad</span>
+                <span class="lote-specs__value">Cúcuta</span>
+              </span>
+            </li>
+          </ul>
+
+          <div class="lote-summary__price-block">
+            <span class="lote-summary__price-label">Precio</span>
+            <p class="lote-summary__price">Consúltanos el valor</p>
+          </div>
+
+          <div class="lote-summary__actions">
+            <a href="#construir" class="btn btn--gold btn--block">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 20h16M6 20V10l6-5 6 5v10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              Construir en este lote
+            </a>
+            <button type="button" class="btn btn--outline btn--block" data-action="info">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M5 19V8.5A3.5 3.5 0 0 1 8.5 5H15a4 4 0 0 1 4 4v10l-3.5-2H8.5A3.5 3.5 0 0 0 5 19Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              Solicitar más información
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ========== TABS ========== -->
+    <section class="lote-details section" id="detalles" aria-labelledby="detalles-heading">
+      <div class="container">
+        <h2 class="visually-hidden" id="detalles-heading">Detalles del lote</h2>
+
+        <div class="lote-details__grid">
+          <div class="lote-tabs-panel">
+            <div class="lote-tabs" role="tablist" aria-label="Información del lote">
+              <button type="button" class="lote-tabs__btn is-active" role="tab" aria-selected="true" aria-controls="tab-descripcion" id="tabbtn-descripcion" data-tab="descripcion">Descripción</button>
+              <button type="button" class="lote-tabs__btn" role="tab" aria-selected="false" aria-controls="tab-caracteristicas" id="tabbtn-caracteristicas" data-tab="caracteristicas">Características</button>
+              <button type="button" class="lote-tabs__btn" role="tab" aria-selected="false" aria-controls="tab-ubicacion" id="tabbtn-ubicacion" data-tab="ubicacion">Ubicación</button>
+            </div>
+
+            <div class="lote-tab-panels">
+              <div class="lote-tab-panel is-active" role="tabpanel" id="tab-descripcion" aria-labelledby="tabbtn-descripcion">
+                <p class="lote-tab-panel__text">
+                  Lote de 179 m² ubicado en Reservas del Lago Country House, en la ciudad de Cúcuta.
+                </p>
+                <p class="lote-tab-panel__text">
+                  Este conjunto residencial se distingue por ser el <strong>único en la zona con un lago artificial</strong>, ofreciendo un entorno natural exclusivo para quienes buscan tranquilidad sin alejarse de la ciudad.
+                </p>
+                <ul class="lote-check-list">
+                  <li>179 m² de área total</li>
+                  <li>Ubicado en Reservas del Lago Country House</li>
+                  <li>Único conjunto de la zona con lago artificial</li>
+                  <li>Ciudad de Cúcuta, Norte de Santander</li>
+                </ul>
+              </div>
+
+              <div class="lote-tab-panel" role="tabpanel" id="tab-caracteristicas" aria-labelledby="tabbtn-caracteristicas" hidden>
+                <ul class="lote-check-list">
+                  <li>Tipo: Lote residencial</li>
+                  <li>Área total: 179 m²</li>
+                  <li>Conjunto con lago artificial</li>
+                  <li>Estado: Disponible</li>
+                </ul>
+                <p class="lote-tab-panel__text" style="margin-top:14px">
+                  Frente, fondo y topografía exactos: consúltalos con nuestro equipo de asesores.
+                </p>
+              </div>
+
+              <div class="lote-tab-panel" role="tabpanel" id="tab-ubicacion" aria-labelledby="tabbtn-ubicacion" hidden>
+                <p class="lote-tab-panel__text">
+                  <strong>Reservas del Lago Country House</strong> — Cúcuta, Norte de Santander. El único conjunto residencial de la zona construido alrededor de un lago artificial.
+                </p>
+                <div class="lote-map img-placeholder" role="img" aria-label="Mapa próximo — ubicación del lote">
+                  <span class="img-placeholder__label">MAPA PRÓXIMAMENTE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="lote-plan" id="plano" aria-labelledby="plano-title">
+            <div class="lote-plan__head">
+              <div>
+                <h3 class="lote-plan__title" id="plano-title">Conoce tu lote</h3>
+                <p class="lote-plan__subtitle">Reservas del Lago Country House · Cúcuta</p>
+              </div>
+              <span class="lote-plan__compass" aria-hidden="true" title="Norte">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M12 5l2.2 6.5H9.8L12 5Z" fill="currentColor"/>
+                  <path d="M12 19l-1.5-4h3L12 19Z" fill="currentColor" opacity="0.35"/>
+                </svg>
+                N
+              </span>
+            </div>
+
+            <div class="lote-plan__media img-placeholder" role="img" aria-label="Plano próximo del condominio">
+              <span class="img-placeholder__label">PLANO PRÓXIMAMENTE</span>
+            </div>
+
+            <ul class="lote-plan__metrics">
+              <li><span>Área</span><strong>179 m²</strong></li>
+              <li><span>Ciudad</span><strong>Cúcuta</strong></li>
+              <li><span>Estado</span><strong>Disponible</strong></li>
+            </ul>
+
+            <button type="button" class="btn btn--outline btn--block" data-action="plano">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M9 4H5v4M15 4h4v4M9 20H5v-4M15 20h4v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Ver plano completo
+            </button>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROPUESTA DE VIVIENDA / 3D ========== -->
+    <section class="lote-build section" id="construir" aria-labelledby="build-title">
+      <div class="container">
+        <header class="section-header section-header--center reveal">
+          <h2 class="section-title" id="build-title">Propuesta de vivienda para este lote</h2>
+          <p class="section-subtitle">Así podría verse tu futura casa aquí. Es una <strong>visualización 3D de una casa modelo</strong>, no una fotografía de una vivienda construida. Explórala en 3D o actívala en realidad aumentada.</p>
+        </header>
+
+        <div class="lote-build__grid reveal">
+          <!-- Model info card -->
+          <div class="lote-models">
+            <article class="lote-model is-active" data-model="modelo" tabindex="0" role="button" aria-pressed="true">
+              <div class="lote-model__media img-placeholder has-image" role="img" aria-label="Render 3D — Casa Modelo">
+                <img src="../assets/images/casa-modelo-render.png" alt="Render 3D de la casa modelo">
+              </div>
+              <div class="lote-model__body">
+                <h3 class="lote-model__name">Casa Modelo</h3>
+                <p class="lote-model__area">Propuesta arquitectónica 3D</p>
+                <span class="lote-model__badge">Visualización, no foto real</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 3D Viewer — model-viewer real con GLB / USDZ -->
+          <div
+            class="lote-viewer"
+            id="nexaViewer"
+            data-viewer="ready"
+            data-lot-id="lote-reservas-del-lago"
+            data-model-id="modelo"
+            data-glb="../assets/models/casa-modelo.glb"
+            data-usdz="../assets/models/casa-modelo.usdz"
+            aria-label="Visor 3D de la casa modelo"
+          >
+            <div class="lote-viewer__modes" role="group" aria-label="Modo de visualización">
+              <button type="button" class="lote-viewer__mode is-active" data-view-mode="3d" aria-pressed="true">3D</button>
+              <button type="button" class="lote-viewer__mode" data-view-mode="ar" aria-pressed="false" data-action="ar">AR</button>
+            </div>
+
+            <div class="lote-viewer__tools" aria-label="Herramientas del visor">
+              <button type="button" class="lote-viewer__tool" id="toolRotar" data-tool="rotar" title="Rotar" aria-label="Activar/pausar rotación automática" aria-pressed="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18 3.5V7h-3.5M6 20.5V17h3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Rotar</span>
+              </button>
+              <button type="button" class="lote-viewer__tool" id="toolReset" data-tool="reset" title="Restablecer vista" aria-label="Restablecer vista">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 8h16v8H4V8Z" stroke="currentColor" stroke-width="1.5"/><path d="M8 8v3M12 8v2M16 8v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span>Vista inicial</span>
+              </button>
+            </div>
+
+            <div class="lote-viewer__stage" id="viewerStage" data-slot="model-viewer">
+              <model-viewer
+                id="casaModelViewer"
+                src="../assets/models/casa-modelo.glb"
+                ios-src="../assets/models/casa-modelo.usdz"
+                poster="../assets/images/casa-modelo-render.png"
+                alt="Casa modelo 3D — propuesta de vivienda para este lote"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                ar-scale="fixed"
+                camera-controls
+                auto-rotate
+                auto-rotate-delay="0"
+                rotation-per-second="18deg"
+                shadow-intensity="1"
+                environment-image="neutral"
+                exposure="1"
+                loading="eager"
+                reveal="auto"
+              >
+                <button slot="ar-button" id="btnAR" class="btn btn--gold lote-viewer__ar">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M7 4H4v3M17 4h3v3M7 20H4v-3M17 20h3v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M12 8.5 16 11v5l-4 2.5L8 16v-5l4-2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                  </svg>
+                  Ver en realidad aumentada
+                </button>
+                <div slot="progress-bar" class="lote-viewer__progress" id="viewerProgress"></div>
+              </model-viewer>
+            </div>
+
+            <p class="lote-viewer__note">Modelo 3D orientativo. Colores y acabados finales pueden variar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONDOMINIO ========== -->
+    <section class="lote-condo section" id="condominio" aria-labelledby="condo-title">
+      <div class="container lote-condo__grid reveal">
+        <div class="lote-condo__media img-placeholder" role="img" aria-label="Imagen próxima — Reservas del Lago Country House">
+          <span class="img-placeholder__label">IMAGEN PRÓXIMAMENTE</span>
+        </div>
+        <div class="lote-condo__content">
+          <p class="lote-condo__eyebrow">El proyecto</p>
+          <h2 class="section-title" id="condo-title">Reservas del Lago Country House</h2>
+          <p class="lote-condo__text">
+            El único conjunto residencial de la zona con un lago artificial propio. Un entorno natural y exclusivo en Cúcuta para construir la casa que imaginas.
+          </p>
+          <ul class="lote-check-list">
+            <li>Único conjunto con lago artificial</li>
+            <li>Entorno natural exclusivo</li>
+            <li>Ubicado en Cúcuta</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA FINAL ========== -->
+    <section class="cta-section section" id="contacto">
+      <div class="container">
+        <div class="cta reveal">
+          <div class="cta__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 3.5v3M16 3.5v3M4 10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cta__content">
+            <h2 class="cta__title">¿Quieres conocer este lote?</h2>
+            <p class="cta__subtitle">Agenda una visita o recibe toda la información del proyecto.</p>
+          </div>
+          <a href="https://wa.me/" class="btn btn--gold cta__btn" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2.4C6.7 2.4 2.4 6.7 2.4 12c0 1.7.4 3.3 1.3 4.7L2 22l5.5-1.6c1.4.7 2.9 1.1 4.5 1.1 5.3 0 9.6-4.3 9.6-9.6S17.3 2.4 12 2.4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.6 9.4c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.3l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.3.5.8 1.1 1.4 1.5.5.4 1 .7 1.5.9.2.1.3 0 .4-.1l.6-.7c.1-.2.3-.2.5-.1l1.8.7c.2.1.3.2.3.5v.5c0 .2 0 .4-.2.6-.3.4-.8.7-1.3.8-.5.1-1.1 0-1.7-.2-1.3-.4-2.6-1.2-3.7-2.3-1.1-1.1-1.9-2.4-2.3-3.8-.2-.6-.3-1.2-.2-1.7.1-.5.4-1 .8-1.3Z" fill="currentColor"/>
+            </svg>
+            Contactar por WhatsApp
+          </a>
+        </div>
+
+        <div class="lote-cta-secondary reveal">
+          <div class="lote-cta-secondary__text">
+            <h3 class="lote-cta-secondary__title">¿Te imaginas tu casa aquí?</h3>
+            <p class="lote-cta-secondary__sub">Escríbenos o agenda una visita al lote sin compromiso.</p>
+          </div>
+          <div class="lote-cta-secondary__actions">
+            <button type="button" class="btn btn--outline" data-action="whatsapp">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2.4C6.7 2.4 2.4 6.7 2.4 12c0 1.7.4 3.3 1.3 4.7L2 22l5.5-1.6c1.4.7 2.9 1.1 4.5 1.1 5.3 0 9.6-4.3 9.6-9.6S17.3 2.4 12 2.4Z" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+              Escríbenos por WhatsApp
+            </button>
+            <button type="button" class="btn btn--gold" data-action="visita">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 3.5v3M16 3.5v3M4 10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Solicitar visita al lote
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">&copy; <span id="year"></span> Nexa Inmobiliaria. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js" defer></script>
+  <script src="../js/lote-reservas-del-lago.js" defer></script>
+</body>
+</html>
