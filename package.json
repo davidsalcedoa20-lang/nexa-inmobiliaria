@@ -1,0 +1,25 @@
+{
+  "name": "nexa-inmobiliaria",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run build -w @nexa/api && npm run build -w @nexa/admin",
+    "typecheck": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run typecheck -w @nexa/api && npm run typecheck -w @nexa/admin",
+    "test": "npm run test --workspaces --if-present",
+    "verify:public": "node scripts/verify-public-site.mjs",
+    "db:generate": "npm run db:generate -w @nexa/database",
+    "db:migrate": "npm run db:migrate -w @nexa/database",
+    "dev:api": "npm run dev -w @nexa/api",
+    "dev:admin": "npm run dev -w @nexa/admin"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
