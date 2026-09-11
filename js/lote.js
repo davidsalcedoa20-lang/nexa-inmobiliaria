@@ -1,5 +1,5 @@
 /**
- * Nexa Inmobiliaria — Página de lote
+ * Andrés Lizcano — página de lote
  * Interacciones visuales + hooks para futuro 3D / AR / GLB / USDZ
  */
 
@@ -77,6 +77,10 @@
         selectModel(model);
       }
     });
+  });
+
+  document.getElementById("volverModelos")?.addEventListener("click", () => {
+    document.querySelector(".lote-models")?.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
   /* ---------- Viewer mode 3D / AR (visual only) ---------- */

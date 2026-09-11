@@ -1,5 +1,5 @@
 /**
- * Nexa — Detalle Sobreplano
+ * Detalle Sobreplano — Andrés Lizcano
  * Hooks GLB / USDZ / AR preparados
  */
 
@@ -15,7 +15,7 @@
   const project = api.getById(projectId) || api.getAll()[0];
   if (!project) return;
 
-  document.title = `${project.name} | Sobreplano | Nexa Inmobiliaria`;
+  document.title = `${project.name} | Sobreplano | Andrés Lizcano`;
   document.body.dataset.projectId = project.id;
 
   const setText = (id, value) => {
@@ -26,17 +26,21 @@
   setText("spName", project.name);
   setText("spLocation", project.location);
   setText("spDescription", project.description);
-  setText("spUnits", `${project.units} unidades`);
-  setText("spArea", project.areaFrom);
-  setText("spPrice", /COP/i.test(project.priceFrom) ? project.priceFrom : `${project.priceFrom} COP`);
+  setText("spLotArea", project.lotArea || "Por confirmar");
+  setText("spBuiltArea", project.builtArea || "Por confirmar");
+  setText("spPrice", project.priceFrom || "Valor por confirmar");
   setText("barLocation", project.location);
-  setText("barType", project.type === "Apartamentos" ? "Proyecto sobre plano" : project.type);
-  setText("barUnits", `${project.units} ${project.type}`);
-  setText("barDelivery", project.delivery ? `Entrega estimada ${project.delivery}` : "Por definir");
+  setText("barType", "Lote + vivienda");
+  setText("barModel", project.houseModel || "Por confirmar");
+  setText("barDelivery", project.delivery || "Por confirmar");
 
   /* Feature strip */
   const strip = document.getElementById("spFeatureStrip");
   const icons = {
+    lote: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5 9 4l5 2.5L20 4v13.5L15 20l-5-2.5L4 20V6.5Z" stroke="currentColor" stroke-width="1.5"/><path d="M9 4v13.5M14 6.5V20" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    vivienda: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 11.5 12 5l8 6.5V20H4v-8.5Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    implantacion: `<svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m7 14 5-4 5 4v3H7v-3Z" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    ingenieria: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 19h16M6 16l4-8 4 8M8 13h4M16 6v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
     lobby: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 20V10l7-5 7 5v10H5Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.5"/></svg>`,
     social: `<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="10" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 18c.5-2.2 2.2-3.5 4.5-3.5s4 1.3 4.5 3.5M13 18c.3-1.5 1.4-2.5 3-2.5s2.7 1 3 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
     terraza: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 18h16M7 18V11l5-4 5 4v7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="17" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg>`,
@@ -73,17 +77,20 @@
   /* Viewer data attrs */
   const apt3D = document.getElementById("aptViewer3D");
   const aptAR = document.getElementById("aptViewerAR");
+  const btn3D = document.getElementById("btnApt3D");
+  const btnAR = document.getElementById("btnAptAR");
   if (apt3D) apt3D.dataset.glb = project.glb || "";
   if (aptAR) aptAR.dataset.usdz = project.usdz || "";
 
-  if (project.usdz) {
-    const btn = document.getElementById("btnAptAR");
-    if (btn) {
-      btn.classList.remove("is-soon");
-      btn.removeAttribute("aria-disabled");
-      const soon = btn.querySelector(".btn__soon");
-      if (soon) soon.hidden = true;
-    }
+  if (btn3D) {
+    btn3D.disabled = !project.glb;
+    btn3D.textContent = project.glb ? "Abrir proyecto en 3D" : "3D próximamente";
+  }
+
+  if (btnAR) {
+    btnAR.disabled = !project.usdz;
+    btnAR.classList.toggle("is-soon", !project.usdz);
+    btnAR.textContent = project.usdz ? "Abrir proyecto en AR" : "AR próximamente";
   }
 
   window.NexaSobreplanoViewer = {

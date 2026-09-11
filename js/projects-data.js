@@ -156,6 +156,70 @@ window.NEXA_PROJECTS = [
   },
 ];
 
+/*
+ * Modelo activo de Sobreplano.
+ * Se conservan los campos heredados de apartamentos únicamente para que las
+ * redirecciones antiguas no fallen; la experiencia activa no los utiliza.
+ */
+const SOBREPLANO_PROJECT_FEATURES = [
+  { id: "lote", label: "Lote específico" },
+  { id: "vivienda", label: "Vivienda predeterminada" },
+  { id: "implantacion", label: "Implantación definida" },
+  { id: "ingenieria", label: "Información técnica" },
+];
+
+const NEXA_SOBREPLANO_DETAILS = {
+  "monte-verde": {
+    type: "Proyecto sobreplano",
+    statusLabel: "SOBREPLANO",
+    priceFrom: "Valor por confirmar",
+    lotArea: "Por confirmar",
+    builtArea: "Por confirmar",
+    houseModel: "Modelo predeterminado por confirmar",
+    delivery: "Por confirmar",
+    projectFeatures: SOBREPLANO_PROJECT_FEATURES,
+    description: "Proyecto residencial compuesto por un lote específico y una vivienda predeterminada. La información técnica definitiva se publicará una vez validada.",
+    included: {
+      lot: "Lote específico dentro del proyecto Monte Verde",
+      house: "Vivienda predeterminada incluida en la propuesta comercial",
+    },
+  },
+  "altos-del-norte": {
+    type: "Proyecto sobreplano",
+    statusLabel: "EN DESARROLLO",
+    priceFrom: "Valor por confirmar",
+    lotArea: "Por confirmar",
+    builtArea: "Por confirmar",
+    houseModel: "Modelo predeterminado por confirmar",
+    delivery: "Por confirmar",
+    projectFeatures: SOBREPLANO_PROJECT_FEATURES,
+    description: "Propuesta de vivienda sobre un lote definido en Altos del Norte. El modelo forma parte integral del proyecto y no se selecciona libremente.",
+    included: {
+      lot: "Lote específico dentro de Altos del Norte",
+      house: "Vivienda predeterminada incluida en la propuesta comercial",
+    },
+  },
+  "reserva-campestre": {
+    type: "Proyecto sobreplano",
+    statusLabel: "PROYECTO DEFINIDO",
+    priceFrom: "Valor por confirmar",
+    lotArea: "Por confirmar",
+    builtArea: "Por confirmar",
+    houseModel: "Modelo predeterminado por confirmar",
+    delivery: "Por confirmar",
+    projectFeatures: SOBREPLANO_PROJECT_FEATURES,
+    description: "Proyecto campestre que integra un lote específico y una vivienda predeterminada dentro de una única propuesta de construcción.",
+    included: {
+      lot: "Lote específico en Condominio El Encanto",
+      house: "Vivienda predeterminada incluida en la propuesta comercial",
+    },
+  },
+};
+
+window.NEXA_PROJECTS.forEach((project) => {
+  Object.assign(project, NEXA_SOBREPLANO_DETAILS[project.id] || {});
+});
+
 window.NexaProjectsAPI = {
   getAll() {
     return window.NEXA_PROJECTS || [];

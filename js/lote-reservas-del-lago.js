@@ -1,5 +1,5 @@
 /**
- * Nexa Inmobiliaria — Lote Reservas del Lago Country House
+ * Andrés Lizcano — Lote Reservas del Lago Country House
  * Interacciones visuales + integración real del visor 3D/AR (<model-viewer>)
  */
 
@@ -97,6 +97,7 @@
   /* Loading progress feedback */
   if (modelViewer) {
     const progress = document.getElementById("viewerProgress");
+    const viewerError = document.getElementById("viewerError");
     modelViewer.addEventListener("progress", (event) => {
       if (!progress) return;
       const pct = Math.round((event.detail.totalProgress || 0) * 100);
@@ -106,6 +107,16 @@
 
     modelViewer.addEventListener("ar-status", (event) => {
       if (viewer) viewer.dataset.arStatus = event.detail.status;
+    });
+
+    modelViewer.addEventListener("load", () => {
+      if (viewer) viewer.dataset.modelStatus = "loaded";
+      if (viewerError) viewerError.hidden = true;
+    });
+
+    modelViewer.addEventListener("error", () => {
+      if (viewer) viewer.dataset.modelStatus = "error";
+      if (viewerError) viewerError.hidden = false;
     });
   }
 

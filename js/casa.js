@@ -1,6 +1,5 @@
 /**
- * Nexa — Detalle de casa
- * Hooks listos para GLB / USDZ
+ * Andrés Lizcano — detalle de casa y hooks GLB / USDZ.
  */
 
 (() => {
@@ -15,7 +14,7 @@
   const casa = api.getById(casaId) || api.getAll()[0];
   if (!casa) return;
 
-  document.title = `${casa.name} | Nexa Inmobiliaria`;
+  document.title = `${casa.name} | Andrés Lizcano`;
   document.body.dataset.casaId = casa.id;
 
   const setText = (id, value) => {
@@ -53,19 +52,44 @@
   if (featuresExtra) featuresExtra.innerHTML = listHTML(casa.features);
   if (finishes) finishes.innerHTML = listHTML(casa.finishes);
 
-  /* Gallery thumbs */
+  /* Galería: usa imágenes reales cuando existan y evita controles ficticios. */
   const thumbs = document.getElementById("casaThumbs");
+  const mainMedia = document.getElementById("casaMainMedia");
+  const prevBtn = document.getElementById("casaPrev");
+  const nextBtn = document.getElementById("casaNext");
+  const galleryImages = (casa.images || []).filter(Boolean);
+  if (casa.image && !galleryImages.includes(casa.image)) galleryImages.unshift(casa.image);
   const photosCount = casa.photosCount || 12;
-  if (thumbs) {
-    const slots = [0, 1, 2, 3];
-    thumbs.innerHTML = slots
-      .map((i) => {
+  let activeImage = 0;
+
+  const showImage = (index) => {
+    if (!mainMedia || !galleryImages.length) return;
+    activeImage = (index + galleryImages.length) % galleryImages.length;
+    mainMedia.classList.add("has-image");
+    mainMedia.setAttribute("role", "group");
+    mainMedia.setAttribute("aria-label", `Foto ${activeImage + 1} de ${casa.name}`);
+    mainMedia.querySelector(".img-placeholder__label")?.remove();
+    let mainImg = mainMedia.querySelector(":scope > img");
+    if (!mainImg) {
+      mainImg = document.createElement("img");
+      mainMedia.prepend(mainImg);
+    }
+    mainImg.src = galleryImages[activeImage];
+    mainImg.alt = `${casa.name}, foto ${activeImage + 1}`;
+    thumbs?.querySelectorAll(".detail-thumb").forEach((item, i) => item.classList.toggle("is-active", i === activeImage));
+  };
+
+  if (thumbs && galleryImages.length) {
+    thumbs.hidden = false;
+    thumbs.innerHTML = galleryImages
+      .slice(0, 4)
+      .map((src, i) => {
         const more =
-          i === 3
-            ? `<span class="detail-thumb__more">+${Math.max(0, photosCount - 3)} Fotos</span>`
+          i === 3 && photosCount > 4
+            ? `<span class="detail-thumb__more">+${photosCount - 4} Fotos</span>`
             : "";
         return `<button type="button" class="detail-thumb${i === 0 ? " is-active" : ""}" data-index="${i}" aria-label="Foto ${i + 1}">
-          <span class="img-placeholder detail-thumb__media"><span class="img-placeholder__label">IMAGEN PRÓXIMAMENTE</span></span>
+          <span class="img-placeholder has-image detail-thumb__media"><img src="${src}" alt=""></span>
           ${more}
         </button>`;
       })
@@ -74,13 +98,17 @@
     thumbs.addEventListener("click", (event) => {
       const btn = event.target.closest(".detail-thumb");
       if (!btn) return;
-      thumbs.querySelectorAll(".detail-thumb").forEach((t) => t.classList.remove("is-active"));
-      btn.classList.add("is-active");
+      showImage(Number(btn.dataset.index || 0));
     });
+    showImage(0);
+  } else if (thumbs) {
+    thumbs.hidden = true;
+    if (prevBtn) prevBtn.disabled = true;
+    if (nextBtn) nextBtn.disabled = true;
   }
 
-  document.getElementById("casaPrev")?.addEventListener("click", () => {});
-  document.getElementById("casaNext")?.addEventListener("click", () => {});
+  prevBtn?.addEventListener("click", () => showImage(activeImage - 1));
+  nextBtn?.addEventListener("click", () => showImage(activeImage + 1));
 
   /* Rooms */
   const rooms = document.getElementById("casaRooms");
@@ -143,15 +171,28 @@
   const btnAR = document.getElementById("btnCasaAR");
   if (btn3D && !casa.glb) {
     btn3D.classList.add("is-soon");
+    btn3D.disabled = true;
     const soon = btn3D.querySelector(".btn__soon");
     if (soon) soon.hidden = false;
   }
-  if (btnAR && casa.usdz) {
-    btnAR.classList.remove("is-soon");
-    btnAR.removeAttribute("aria-disabled");
-    const soon = btnAR.querySelector(".btn__soon");
-    if (soon) soon.hidden = true;
+  if (btnAR) {
+    btnAR.disabled = !casa.usdz;
+    if (casa.usdz) {
+      btnAR.classList.remove("is-soon");
+      btnAR.removeAttribute("aria-disabled");
+      const soon = btnAR.querySelector(".btn__soon");
+      if (soon) soon.hidden = true;
+    }
   }
+
+  const link3D = document.getElementById("link3D");
+  const linkAR = document.getElementById("linkAR");
+  if (link3D && !casa.glb) {
+    link3D.removeAttribute("href");
+    link3D.setAttribute("aria-disabled", "true");
+    link3D.textContent = "3D próximamente";
+  }
+  if (linkAR) linkAR.disabled = !casa.usdz;
 
   window.NexaCasaViewer = {
     loadModel(glbUrl, usdzUrl) {
