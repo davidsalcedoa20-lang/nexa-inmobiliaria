@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CreatePropertySchema } from "./property.js";
+import { CreatePropertySchema, UpdatePropertySchema } from "./property.js";
 
 describe("CreatePropertySchema", () => {
   it("accepts each supported property type", () => {
@@ -26,5 +26,10 @@ describe("CreatePropertySchema", () => {
     });
 
     expect(result.success).toBe(false);
+  });
+
+  it("does not inject creation defaults into a partial update", () => {
+    const result = UpdatePropertySchema.parse({ title: "Título actualizado", version: 1 });
+    expect(result).toEqual({ title: "Título actualizado", version: 1 });
   });
 });

@@ -1,5 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import type { AdminProfileRepository, AuthorizedAdmin, TokenVerifier } from "./types.js";
+import type { AdminRole } from "@nexa/contracts";
 
 export type AuthDependencies = {
   tokenVerifier: TokenVerifier;
@@ -28,7 +29,16 @@ export async function authorizeAdmin(
   let identity;
   try {
     identity = await dependencies.tokenVerifier.verify(token);
-  } catch {
+  } catch (error) {
+    request.log.warn(
+      {
+        authError:
+          error instanceof Error
+            ? { name: error.name, message: error.message }
+            : { name: "UnknownAuthError" },
+      },
+      "Supabase access token verification failed",
+    );
     await reply.code(401).send({ code: "INVALID_TOKEN", message: "La sesión no es válida" });
     return null;
   }
@@ -47,4 +57,24 @@ export async function authorizeAdmin(
     displayName: profile.displayName,
     role: profile.role,
   };
+}
+
+export async function authorizeRoles(
+  request: FastifyRequest,
+  reply: FastifyReply,
+  dependencies: AuthDependencies,
+  roles: AdminRole[],
+) {
+  const administrator = await authorizeAdmin(request, reply, dependencies);
+  if (!administrator) return null;
+
+  if (!roles.includes(administrator.role)) {
+    await reply.code(403).send({
+      code: "INSUFFICIENT_ROLE",
+      message: "Tu rol no permite realizar esta acción",
+    });
+    return null;
+  }
+
+  return administrator;
 }

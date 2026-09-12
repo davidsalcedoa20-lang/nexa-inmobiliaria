@@ -3,6 +3,7 @@ import { buildApp } from "./app.js";
 import { DrizzleAdminProfileRepository } from "./auth/drizzle-admin-profile-repository.js";
 import { SupabaseTokenVerifier } from "./auth/supabase-token-verifier.js";
 import { readEnvironment } from "./config/env.js";
+import { DrizzlePropertyRepository } from "./properties/drizzle-property-repository.js";
 
 const environment = readEnvironment();
 const connection = createDatabase(environment.DATABASE_URL);
@@ -10,6 +11,7 @@ const connection = createDatabase(environment.DATABASE_URL);
 const app = await buildApp({
   tokenVerifier: new SupabaseTokenVerifier(environment.SUPABASE_URL),
   adminProfiles: new DrizzleAdminProfileRepository(connection.db),
+  properties: new DrizzlePropertyRepository(connection.db),
   adminOrigins: environment.adminOrigins,
   logger: { level: environment.LOG_LEVEL },
 });

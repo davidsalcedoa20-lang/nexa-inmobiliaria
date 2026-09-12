@@ -2,14 +2,26 @@ import type { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { AdminShell } from "./components/AdminShell";
 import { LoginForm } from "./components/LoginForm";
+import { ResetPasswordForm } from "./components/ResetPasswordForm";
 import { getCurrentAdmin, type CurrentAdmin } from "./lib/api";
 import { hasSupabaseConfiguration, supabase } from "./lib/supabase";
 
 type AuthState =
   | { status: "loading" }
   | { status: "anonymous" }
+  | { status: "recovering" }
   | { status: "authenticated"; admin: CurrentAdmin }
   | { status: "forbidden"; message: string };
+
+function recoveryRequested() {
+  const query = new URLSearchParams(window.location.search);
+  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+  const explicitRecovery = query.get("recovery") === "1" || hash.get("type") === "recovery";
+  if (explicitRecovery) {
+    window.localStorage.setItem("nexa:password-recovery-pending", "true");
+  }
+  return explicitRecovery || window.localStorage.getItem("nexa:password-recovery-pending") === "true";
+}
 
 async function resolveSession(session: Session | null, setState: (state: AuthState) => void) {
   if (!session) {
@@ -33,9 +45,21 @@ export default function App() {
 
   useEffect(() => {
     if (!supabase) return;
+    const recoveryPending = recoveryRequested();
 
-    void supabase.auth.getSession().then(({ data }) => resolveSession(data.session, setState));
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+    void supabase.auth.getSession().then(({ data }) => {
+      if (data.session && recoveryPending) {
+        setState({ status: "recovering" });
+        return;
+      }
+      void resolveSession(data.session, setState);
+    });
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" || (session && recoveryRequested())) {
+        window.localStorage.setItem("nexa:password-recovery-pending", "true");
+        setState({ status: "recovering" });
+        return;
+      }
       void resolveSession(session, setState);
     });
 
@@ -58,6 +82,17 @@ export default function App() {
 
   if (state.status === "loading") return <div className="loading-screen">Validando sesión…</div>;
   if (state.status === "anonymous") return <LoginForm />;
+  if (state.status === "recovering") {
+    return (
+      <ResetPasswordForm
+        onComplete={() => {
+          window.localStorage.removeItem("nexa:password-recovery-pending");
+          window.history.replaceState({}, "", "/");
+          setState({ status: "anonymous" });
+        }}
+      />
+    );
+  }
   if (state.status === "authenticated") return <AdminShell admin={state.admin} />;
 
   return (

@@ -11,6 +11,8 @@
     "typecheck": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run typecheck -w @nexa/api && npm run typecheck -w @nexa/admin",
     "test": "npm run test --workspaces --if-present",
     "verify:public": "node scripts/verify-public-site.mjs",
+    "verify:supabase": "node --env-file=.env scripts/verify-supabase-local.mjs",
+    "verify:stage2-db": "node --env-file=.env scripts/verify-stage2-database.mjs",
     "db:generate": "npm run db:generate -w @nexa/database",
     "db:migrate": "npm run db:migrate -w @nexa/database",
     "dev:api": "npm run dev -w @nexa/api",

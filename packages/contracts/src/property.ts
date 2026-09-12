@@ -44,6 +44,9 @@ export const CreatePropertySchema = z.object({
 });
 
 export const UpdatePropertySchema = CreatePropertySchema.partial().extend({
+  currency: CurrencySchema.optional(),
+  country: z.string().trim().min(2).max(120).optional(),
+  specifications: PropertySpecificationsSchema.optional(),
   version: z.number().int().positive(),
 });
 
@@ -56,6 +59,33 @@ export const PropertySchema = CreatePropertySchema.extend({
   updatedAt: z.iso.datetime(),
 });
 
+export const PropertyListQuerySchema = z.object({
+  search: z.string().trim().max(180).optional(),
+  type: PropertyTypeSchema.optional(),
+  publicationStatus: PublicationStatusSchema.optional(),
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().min(1).max(100).default(20),
+});
+
+export const PropertyVersionSchema = z.object({
+  version: z.number().int().positive(),
+});
+
+export const PropertyListSchema = z.object({
+  data: z.array(PropertySchema),
+  pagination: z.object({
+    page: z.number().int().positive(),
+    pageSize: z.number().int().positive(),
+    total: z.number().int().nonnegative(),
+    totalPages: z.number().int().nonnegative(),
+  }),
+});
+
 export type CreatePropertyInput = z.input<typeof CreatePropertySchema>;
 export type UpdatePropertyInput = z.input<typeof UpdatePropertySchema>;
+export type CreatePropertyData = z.output<typeof CreatePropertySchema>;
+export type UpdatePropertyData = z.output<typeof UpdatePropertySchema>;
 export type Property = z.output<typeof PropertySchema>;
+export type PropertyListQuery = z.output<typeof PropertyListQuerySchema>;
+export type PropertyVersionInput = z.infer<typeof PropertyVersionSchema>;
+export type PropertyList = z.infer<typeof PropertyListSchema>;
