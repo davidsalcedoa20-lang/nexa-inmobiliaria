@@ -209,6 +209,21 @@ label { display: grid; gap: 7px; color: #263b4c; font-size: 0.86rem; font-weight
   font-size: 0.68rem;
   font-weight: 850;
 }
+.three-d-list-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #52636f;
+  background: #edf1f4;
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+.three-d-list-chip--review_required { color: #765215; background: #fff0cc; }
+.three-d-list-chip--ready { color: #17643d; background: #ddf5e7; }
+.three-d-list-chip--queued, .three-d-list-chip--processing, .three-d-list-chip--uploading { color: #15567b; background: #e0f2fb; }
+.three-d-list-chip--failed { color: #8a2c2c; background: #fde5e5; }
 .type-chip { color: #1d506e; background: #e4f1f7; }
 .status-chip--draft { color: #745613; background: #fff4d7; }
 .status-chip--published { color: #17643d; background: #ddf5e7; }
@@ -406,7 +421,25 @@ label { display: grid; gap: 7px; color: #263b4c; font-size: 0.86rem; font-weight
 }
 .prepare-3d strong { color: var(--navy-900); }
 .prepare-3d p { margin: 4px 0 0; color: var(--muted); font-size: 0.78rem; line-height: 1.4; }
+.prepare-3d small { display: block; margin-top: 6px; color: #6a7d89; font-size: 0.7rem; }
 .prepare-3d button:disabled { cursor: not-allowed; }
+.three-d-status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.three-d-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #52636f;
+  background: #e4eaee;
+  font-size: 0.66rem;
+  font-weight: 850;
+}
+.three-d-chip--review_required { color: #765215; background: #fff0cc; }
+.three-d-chip--ready { color: #17643d; background: #ddf5e7; }
+.three-d-chip--queued, .three-d-chip--processing, .three-d-chip--uploading { color: #15567b; background: #dff1fb; }
+.three-d-chip--failed { color: #8a2c2c; background: #fde5e5; }
+.three-d-ready-mark { color: #17643d; font-size: 0.86rem; font-weight: 850; }
 
 @media (min-width: 620px) {
   .admin-main { padding: 34px 24px 90px; }

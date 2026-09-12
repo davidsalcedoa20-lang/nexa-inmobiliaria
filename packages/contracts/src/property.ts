@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ThreeDStatusSchema } from "./reconstruction.js";
 
 export const propertyTypeValues = ["house", "lot", "preconstruction"] as const;
 export const PropertyTypeSchema = z.enum(propertyTypeValues);
@@ -53,6 +54,7 @@ export const UpdatePropertySchema = CreatePropertySchema.partial().extend({
 export const PropertySchema = CreatePropertySchema.extend({
   id: z.uuid(),
   publicationStatus: PublicationStatusSchema,
+  threeDStatus: ThreeDStatusSchema,
   publishedAt: z.iso.datetime().nullable(),
   version: z.number().int().positive(),
   createdAt: z.iso.datetime(),

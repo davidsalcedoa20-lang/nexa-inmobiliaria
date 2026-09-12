@@ -9,6 +9,7 @@ import type {
   Property,
   PropertyList,
   PropertyListQuery,
+  ThreeDStatusResponse,
   UpdatePropertyInput,
 } from "@nexa/contracts";
 import { supabase } from "./supabase";
@@ -208,6 +209,32 @@ export async function deleteCapturePhoto(propertyId: string, photoId: string) {
     await currentAccessToken(),
     { method: "DELETE" },
   );
+}
+
+export async function getThreeDStatus(propertyId: string) {
+  const response = await request<{ data: ThreeDStatusResponse }>(
+    `/api/v1/properties/${propertyId}/3d-status`,
+    await currentAccessToken(),
+  );
+  return response.data;
+}
+
+export async function prepareThreeDGeneration(propertyId: string) {
+  const response = await request<{ data: ThreeDStatusResponse }>(
+    `/api/v1/properties/${propertyId}/generate-3d`,
+    await currentAccessToken(),
+    { method: "POST", body: JSON.stringify({}) },
+  );
+  return response.data;
+}
+
+export async function publishThreeDExperience(propertyId: string) {
+  const response = await request<{ data: ThreeDStatusResponse }>(
+    `/api/v1/properties/${propertyId}/3d/publish`,
+    await currentAccessToken(),
+    { method: "POST", body: JSON.stringify({}) },
+  );
+  return response.data;
 }
 
 function readImageDimensions(file: File): Promise<{ width: number; height: number } | null> {

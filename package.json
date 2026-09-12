@@ -14,6 +14,7 @@
     "verify:supabase": "node --env-file=.env scripts/verify-supabase-local.mjs",
     "verify:stage2-db": "node --env-file=.env scripts/verify-stage2-database.mjs",
     "verify:stage3": "node --env-file=.env scripts/verify-stage3-integration.mjs",
+    "verify:stage4": "node --env-file=.env scripts/verify-stage4-integration.mjs",
     "verify:r2": "node --env-file=.env scripts/verify-r2-local.mjs",
     "db:generate": "npm run db:generate -w @nexa/database",
     "db:migrate": "npm run db:migrate -w @nexa/database",

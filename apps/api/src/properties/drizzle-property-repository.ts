@@ -24,6 +24,7 @@ function toProperty(record: PropertyRecord): Property {
     id: record.id,
     type: record.type,
     publicationStatus: record.publicationStatus,
+    threeDStatus: record.threeDStatus,
     title: record.title,
     slug: record.slug,
     summary: record.summary,

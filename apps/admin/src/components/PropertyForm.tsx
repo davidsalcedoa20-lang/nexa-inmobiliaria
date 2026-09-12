@@ -73,10 +73,12 @@ export function PropertyForm({
   property,
   onCancel,
   onSaved,
+  canPublish3D,
 }: {
   property?: Property | undefined;
   onCancel: () => void;
   onSaved: (property: Property) => void;
+  canPublish3D: boolean;
 }) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [savedNotice, setSavedNotice] = useState<string | null>(null);
@@ -269,7 +271,7 @@ export function PropertyForm({
         </fieldset>
 
         {property ? (
-          <Capture3DPanel propertyId={property.id} />
+          <Capture3DPanel propertyId={property.id} canPublish={canPublish3D} />
         ) : (
           <section className="future-module" aria-label="Captura 3D disponible después de guardar">
             <div className="future-icon" aria-hidden="true">3D</div>

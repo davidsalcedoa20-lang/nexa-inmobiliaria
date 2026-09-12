@@ -25,3 +25,12 @@ export const capturePhotoStatus = pgEnum("capture_photo_status", [
   "uploaded",
   "failed",
 ]);
+export const threeDStatus = pgEnum("three_d_status", [
+  "not_started",
+  "uploading",
+  "queued",
+  "processing",
+  "review_required",
+  "ready",
+  "failed",
+]);

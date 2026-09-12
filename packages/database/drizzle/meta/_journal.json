@@ -29,6 +29,13 @@
       "when": 1789232482434,
       "tag": "0003_light_gladiator",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789234631308,
+      "tag": "0004_known_blindfold",
+      "breakpoints": true
     }
   ]
 }

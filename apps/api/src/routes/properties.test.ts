@@ -45,6 +45,7 @@ function property(overrides: Partial<Property> = {}): Property {
     id: propertyId,
     type: "house",
     publicationStatus: "draft",
+    threeDStatus: "not_started",
     title: "Casa Mirador",
     slug: "casa-mirador",
     summary: null,

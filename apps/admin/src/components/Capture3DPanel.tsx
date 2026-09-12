@@ -1,4 +1,10 @@
-import type { CaptureRoom, CaptureRoomType, CaptureSession } from "@nexa/contracts";
+import type {
+  CaptureRoom,
+  CaptureRoomType,
+  CaptureSession,
+  ThreeDStatus,
+  ThreeDStatusResponse,
+} from "@nexa/contracts";
 import { useEffect, useRef, useState } from "react";
 import {
   createCaptureRoom,
@@ -6,6 +12,9 @@ import {
   deleteCapturePhoto,
   deleteCaptureRoom,
   getCapture,
+  getThreeDStatus,
+  prepareThreeDGeneration,
+  publishThreeDExperience,
   startCaptureSession,
   uploadCapturePhoto,
 } from "../lib/api";
@@ -24,11 +33,39 @@ const roomLabels: Record<CaptureRoomType, string> = {
 
 const maxFileBytes = 25 * 1024 * 1024;
 
-export function Capture3DPanel({ propertyId }: { propertyId: string }) {
+const threeDLabels: Record<ThreeDStatus, string> = {
+  not_started: "Sin iniciar",
+  uploading: "Cargando fotografías",
+  queued: "En cola",
+  processing: "Procesando",
+  review_required: "Revisión requerida",
+  ready: "Lista",
+  failed: "Falló",
+};
+
+const threeDHelp: Record<ThreeDStatus, string> = {
+  not_started: "Cuando termines la captura podrás preparar la experiencia 3D simulada.",
+  uploading: "Las fotografías técnicas todavía se están preparando.",
+  queued: "El trabajo fue registrado y espera comenzar.",
+  processing: "El proveedor está preparando la experiencia.",
+  review_required: "La preparación simulada terminó. Revísala y publícala cuando corresponda.",
+  ready: "La experiencia simulada está aprobada. No se ha generado ningún modelo real.",
+  failed: "La preparación no terminó correctamente. Puedes intentarlo de nuevo.",
+};
+
+export function Capture3DPanel({
+  propertyId,
+  canPublish,
+}: {
+  propertyId: string;
+  canPublish: boolean;
+}) {
   const [session, setSession] = useState<CaptureSession | null>(null);
+  const [threeD, setThreeD] = useState<ThreeDStatusResponse | null>(null);
   const [roomType, setRoomType] = useState<CaptureRoomType>("living_room");
   const [roomName, setRoomName] = useState(roomLabels.living_room);
   const [busy, setBusy] = useState(false);
+  const [threeDBusy, setThreeDBusy] = useState(false);
   const [uploading, setUploading] = useState<{ roomId: string; current: number; total: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -37,8 +74,12 @@ export function Capture3DPanel({ propertyId }: { propertyId: string }) {
   const galleryInput = useRef<HTMLInputElement>(null);
 
   const reload = async () => {
-    const snapshot = await getCapture(propertyId);
+    const [snapshot, status] = await Promise.all([
+      getCapture(propertyId),
+      getThreeDStatus(propertyId),
+    ]);
     setSession(snapshot);
+    setThreeD(status);
   };
 
   useEffect(() => {
@@ -48,6 +89,14 @@ export function Capture3DPanel({ propertyId }: { propertyId: string }) {
       .catch((requestError) => setError(message(requestError)))
       .finally(() => setBusy(false));
   }, [propertyId]);
+
+  useEffect(() => {
+    if (threeD?.status !== "queued" && threeD?.status !== "processing") return;
+    const timer = window.setInterval(() => {
+      void getThreeDStatus(propertyId).then(setThreeD).catch(() => undefined);
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, [propertyId, threeD?.status]);
 
   const begin = async () => {
     setBusy(true);
@@ -147,6 +196,37 @@ export function Capture3DPanel({ propertyId }: { propertyId: string }) {
       setError(message(requestError));
     } finally {
       setBusy(false);
+    }
+  };
+
+  const prepareThreeD = async () => {
+    setThreeDBusy(true);
+    setError(null);
+    setNotice(null);
+    try {
+      const result = await prepareThreeDGeneration(propertyId);
+      setThreeD(result);
+      setNotice("La preparación simulada terminó y está lista para revisión.");
+    } catch (requestError) {
+      await getThreeDStatus(propertyId).then(setThreeD).catch(() => undefined);
+      setError(message(requestError));
+    } finally {
+      setThreeDBusy(false);
+    }
+  };
+
+  const publishThreeD = async () => {
+    setThreeDBusy(true);
+    setError(null);
+    setNotice(null);
+    try {
+      const result = await publishThreeDExperience(propertyId);
+      setThreeD(result);
+      setNotice("La experiencia 3D simulada quedó marcada como lista.");
+    } catch (requestError) {
+      setError(message(requestError));
+    } finally {
+      setThreeDBusy(false);
     }
   };
 
@@ -276,12 +356,52 @@ export function Capture3DPanel({ propertyId }: { propertyId: string }) {
 
           <div className="prepare-3d">
             <div>
-              <strong>Preparar generación 3D</strong>
-              <p>Esta acción se conectará al proveedor simulado en la siguiente etapa.</p>
+              <div className="three-d-status-line">
+                <strong>Preparar generación 3D</strong>
+                {threeD && (
+                  <span className={`three-d-chip three-d-chip--${threeD.status}`}>
+                    {threeDLabels[threeD.status]}
+                  </span>
+                )}
+              </div>
+              <p>{threeD ? threeDHelp[threeD.status] : "Consultando el estado de preparación…"}</p>
+              {threeD?.latestJob && (
+                <small>Proveedor: {threeD.latestJob.provider === "mock" ? "Simulado" : threeD.latestJob.provider}</small>
+              )}
             </div>
-            <button className="primary-button" type="button" disabled title="Disponible en la ETAPA 4">
-              Preparar generación 3D
-            </button>
+            {threeD?.status === "review_required" ? (
+              <button
+                className="primary-button"
+                type="button"
+                disabled={!canPublish || threeDBusy}
+                onClick={() => void publishThreeD()}
+                title={canPublish ? undefined : "Solo un administrador puede publicar"}
+              >
+                {threeDBusy ? "Publicando…" : canPublish ? "Publicar experiencia 3D" : "Pendiente de administrador"}
+              </button>
+            ) : threeD?.status === "ready" ? (
+              <span className="three-d-ready-mark" aria-label="Experiencia 3D lista">✓ Lista</span>
+            ) : (
+              <button
+                className="primary-button"
+                type="button"
+                disabled={
+                  threeDBusy ||
+                  Boolean(uploading) ||
+                  session.totalPhotoCount === 0 ||
+                  threeD?.status === "queued" ||
+                  threeD?.status === "processing" ||
+                  !threeD
+                }
+                onClick={() => void prepareThreeD()}
+              >
+                {threeDBusy
+                  ? "Preparando…"
+                  : threeD?.status === "failed"
+                    ? "Reintentar preparación"
+                    : "Preparar generación 3D"}
+              </button>
+            )}
           </div>
         </>
       )}

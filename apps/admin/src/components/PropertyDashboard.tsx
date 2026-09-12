@@ -1,4 +1,4 @@
-import type { AdminRole, Property, PropertyType, PublicationStatus } from "@nexa/contracts";
+import type { AdminRole, Property, PropertyType, PublicationStatus, ThreeDStatus } from "@nexa/contracts";
 import { useCallback, useEffect, useState } from "react";
 import {
   changePublication,
@@ -17,6 +17,16 @@ const statusLabels: Record<PublicationStatus, string> = {
   draft: "Borrador",
   published: "Publicada",
   unpublished: "Despublicada",
+};
+
+const threeDShortLabels: Record<ThreeDStatus, string> = {
+  not_started: "3D sin iniciar",
+  uploading: "3D cargando",
+  queued: "3D en cola",
+  processing: "3D procesando",
+  review_required: "3D por revisar",
+  ready: "3D lista",
+  failed: "3D falló",
 };
 
 function money(property: Property) {
@@ -104,7 +114,14 @@ export function PropertyDashboard({ role }: { role: AdminRole }) {
   };
 
   if (creating || selected) {
-    return <PropertyForm property={selected ?? undefined} onCancel={closeEditor} onSaved={saved} />;
+    return (
+      <PropertyForm
+        property={selected ?? undefined}
+        onCancel={closeEditor}
+        onSaved={saved}
+        canPublish3D={role === "admin"}
+      />
+    );
   }
 
   return (
@@ -165,6 +182,9 @@ export function PropertyDashboard({ role }: { role: AdminRole }) {
                   <span className="type-chip">{typeLabels[property.type]}</span>
                   <span className={`status-chip status-chip--${property.publicationStatus}`}>
                     {statusLabels[property.publicationStatus]}
+                  </span>
+                  <span className={`three-d-list-chip three-d-list-chip--${property.threeDStatus}`}>
+                    {threeDShortLabels[property.threeDStatus]}
                   </span>
                 </div>
                 <h2>{property.title}</h2>

@@ -49,7 +49,7 @@ afterEach(async () => {
   await Promise.all(applications.splice(0).map((app) => app.close()));
 });
 
-describe("API stage 3", () => {
+describe("API stage 4", () => {
   it("reports service health without database access", async () => {
     const app = await buildApp({
       tokenVerifier: verifier,
@@ -59,7 +59,7 @@ describe("API stage 3", () => {
     applications.push(app);
     const response = await app.inject({ method: "GET", url: "/health" });
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toMatchObject({ status: "ok", service: "nexa-api", stage: 3 });
+    expect(response.json()).toMatchObject({ status: "ok", service: "nexa-api", stage: 4 });
   });
 
   it("rejects requests without a session", async () => {

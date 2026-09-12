@@ -44,6 +44,7 @@ const property: Property = {
   id: propertyId,
   type: "house",
   publicationStatus: "draft",
+  threeDStatus: "not_started",
   title: "Casa captura",
   slug: "casa-captura",
   summary: null,

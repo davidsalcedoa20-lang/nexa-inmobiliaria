@@ -4,9 +4,14 @@ import type { AuthDependencies } from "./auth/authorize.js";
 import { registerAuthRoutes } from "./routes/auth.js";
 import { registerCaptureRoutes, type CaptureRouteDependencies } from "./routes/capture.js";
 import { registerPropertyRoutes, type PropertyRouteDependencies } from "./routes/properties.js";
+import {
+  registerReconstructionRoutes,
+  type ReconstructionRouteDependencies,
+} from "./routes/reconstruction.js";
 
 export type BuildAppOptions = AuthDependencies & PropertyRouteDependencies &
   Partial<Pick<CaptureRouteDependencies, "captures" | "objectStorage">> & {
+  reconstruction?: ReconstructionRouteDependencies["reconstruction"];
   adminOrigins?: string[];
   logger?: boolean | { level: string };
 };
@@ -22,7 +27,7 @@ export async function buildApp(options: BuildAppOptions) {
   app.get("/health", async () => ({
     status: "ok",
     service: "nexa-api",
-    stage: 3,
+    stage: 4,
   }));
 
   await registerAuthRoutes(app, options);
@@ -32,6 +37,12 @@ export async function buildApp(options: BuildAppOptions) {
       ...options,
       captures: options.captures,
       objectStorage: options.objectStorage,
+    });
+  }
+  if (options.reconstruction) {
+    await registerReconstructionRoutes(app, {
+      ...options,
+      reconstruction: options.reconstruction,
     });
   }
 

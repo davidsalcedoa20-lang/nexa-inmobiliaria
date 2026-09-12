@@ -12,7 +12,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { adminProfiles } from "./admin-profiles.js";
-import { currency, propertyType, publicationStatus } from "./enums.js";
+import { currency, propertyType, publicationStatus, threeDStatus } from "./enums.js";
 
 export const properties = pgTable(
   "properties",
@@ -20,6 +20,7 @@ export const properties = pgTable(
     id: uuid("id").primaryKey().defaultRandom(),
     type: propertyType("type").notNull(),
     publicationStatus: publicationStatus("publication_status").notNull().default("draft"),
+    threeDStatus: threeDStatus("three_d_status").notNull().default("not_started"),
     title: text("title").notNull(),
     slug: text("slug").notNull(),
     summary: text("summary"),
@@ -56,6 +57,7 @@ export const properties = pgTable(
     uniqueIndex("properties_slug_unique").on(table.slug),
     index("properties_type_idx").on(table.type),
     index("properties_publication_status_idx").on(table.publicationStatus),
+    index("properties_three_d_status_idx").on(table.threeDStatus),
     index("properties_city_idx").on(table.city),
     check("properties_price_non_negative", sql`${table.price} is null or ${table.price} >= 0`),
     check(
