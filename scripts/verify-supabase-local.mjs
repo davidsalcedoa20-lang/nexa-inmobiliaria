@@ -58,10 +58,17 @@ try {
         where n.nspname = 'public' and c.relname = 'properties'
       ) as properties_rls,
       (
+        select bool_and(c.relrowsecurity)
+        from pg_class c
+        join pg_namespace n on n.oid = c.relnamespace
+        where n.nspname = 'public'
+          and c.relname in ('capture_sessions', 'capture_rooms', 'capture_photos')
+      ) as capture_tables_rls,
+      (
         select count(*)::int
         from pg_policies
         where schemaname = 'public'
-          and tablename in ('admin_profiles', 'properties')
+          and tablename in ('admin_profiles', 'properties', 'capture_sessions', 'capture_rooms', 'capture_photos')
       ) as rls_policies
   `;
 

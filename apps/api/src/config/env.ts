@@ -9,6 +9,12 @@ const EnvironmentSchema = z.object({
   LOG_LEVEL: z
     .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
     .default("info"),
+  R2_ACCOUNT_ID: z.string().min(1),
+  R2_ACCESS_KEY_ID: z.string().min(1),
+  R2_SECRET_ACCESS_KEY: z.string().min(1),
+  R2_BUCKET_NAME: z.string().min(3),
+  R2_ENDPOINT: z.string().url(),
+  R2_REGION: z.string().default("auto"),
 });
 
 export function readEnvironment(environment: NodeJS.ProcessEnv = process.env) {

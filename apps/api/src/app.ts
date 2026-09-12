@@ -2,9 +2,11 @@ import cors from "@fastify/cors";
 import Fastify from "fastify";
 import type { AuthDependencies } from "./auth/authorize.js";
 import { registerAuthRoutes } from "./routes/auth.js";
+import { registerCaptureRoutes, type CaptureRouteDependencies } from "./routes/capture.js";
 import { registerPropertyRoutes, type PropertyRouteDependencies } from "./routes/properties.js";
 
-export type BuildAppOptions = AuthDependencies & PropertyRouteDependencies & {
+export type BuildAppOptions = AuthDependencies & PropertyRouteDependencies &
+  Partial<Pick<CaptureRouteDependencies, "captures" | "objectStorage">> & {
   adminOrigins?: string[];
   logger?: boolean | { level: string };
 };
@@ -20,11 +22,18 @@ export async function buildApp(options: BuildAppOptions) {
   app.get("/health", async () => ({
     status: "ok",
     service: "nexa-api",
-    stage: 2,
+    stage: 3,
   }));
 
   await registerAuthRoutes(app, options);
   await registerPropertyRoutes(app, options);
+  if (options.captures && options.objectStorage) {
+    await registerCaptureRoutes(app, {
+      ...options,
+      captures: options.captures,
+      objectStorage: options.objectStorage,
+    });
+  }
 
   app.setErrorHandler((error, request, reply) => {
     request.log.error(error);

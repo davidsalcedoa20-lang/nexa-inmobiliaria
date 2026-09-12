@@ -2,6 +2,7 @@ import type { CreatePropertyInput, Property, PropertyType } from "@nexa/contract
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { createProperty, updateProperty } from "../lib/api";
+import { Capture3DPanel } from "./Capture3DPanel";
 
 type PropertyFormValues = {
   type: PropertyType;
@@ -78,6 +79,7 @@ export function PropertyForm({
   onSaved: (property: Property) => void;
 }) {
   const [serverError, setServerError] = useState<string | null>(null);
+  const [savedNotice, setSavedNotice] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -91,6 +93,7 @@ export function PropertyForm({
 
   const submit = async (values: PropertyFormValues) => {
     setServerError(null);
+    setSavedNotice(null);
     const input: CreatePropertyInput = {
       type: values.type,
       title: values.title.trim(),
@@ -118,6 +121,7 @@ export function PropertyForm({
         ? await updateProperty(property.id, { ...input, version: property.version })
         : await createProperty(input);
       reset(defaults(saved));
+      setSavedNotice("Los datos de la propiedad quedaron guardados.");
       onSaved(saved);
     } catch (error) {
       setServerError(error instanceof Error ? error.message : "No fue posible guardar la propiedad");
@@ -264,16 +268,21 @@ export function PropertyForm({
           </div>
         </fieldset>
 
-        <section className="future-module" aria-label="Captura 3D pendiente">
-          <div className="future-icon" aria-hidden="true">3D</div>
-          <div>
-            <strong>Captura 3D</strong>
-            <p>Las habitaciones y fotografías técnicas se habilitarán en la ETAPA 3.</p>
-          </div>
-          <span>Próximamente</span>
-        </section>
+        {property ? (
+          <Capture3DPanel propertyId={property.id} />
+        ) : (
+          <section className="future-module" aria-label="Captura 3D disponible después de guardar">
+            <div className="future-icon" aria-hidden="true">3D</div>
+            <div>
+              <strong>Captura 3D</strong>
+              <p>Guarda primero este borrador para crear habitaciones y tomar fotografías.</p>
+            </div>
+            <span>Guardar primero</span>
+          </section>
+        )}
 
         {serverError && <p className="form-error" role="alert">{serverError}</p>}
+        {savedNotice && <p className="success-message" role="status">{savedNotice}</p>}
 
         <div className="form-actions sticky-actions">
           <button className="secondary-button" type="button" onClick={onCancel}>Cancelar</button>

@@ -1,0 +1,2 @@
+CREATE INDEX "capture_photos_created_by_idx" ON "capture_photos" USING btree ("created_by");--> statement-breakpoint
+CREATE INDEX "capture_sessions_created_by_idx" ON "capture_sessions" USING btree ("created_by");

@@ -69,8 +69,8 @@ export function PropertyDashboard({ role }: { role: AdminRole }) {
   };
 
   const saved = (property: Property) => {
-    closeEditor();
-    setNotice(`${property.title} se guardó correctamente.`);
+    setCreating(false);
+    setSelected(property);
     void load();
   };
 
