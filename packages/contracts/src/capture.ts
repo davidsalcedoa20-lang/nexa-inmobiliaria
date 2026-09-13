@@ -1,4 +1,5 @@
 import { z } from "zod";
+export const MAX_PHOTOS_PER_ROOM = 250;
 
 export const captureSessionStatusValues = ["active", "completed"] as const;
 export const CaptureSessionStatusSchema = z.enum(captureSessionStatusValues);

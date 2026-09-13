@@ -11,6 +11,7 @@ import { z } from "zod";
 import { authorizeRoles, type AuthDependencies } from "../auth/authorize.js";
 import {
   CapturePhotoNotFoundError,
+  CapturePhotoLimitError,
   type CaptureRepository,
   CaptureRoomNotFoundError,
   CaptureUploadMismatchError,
@@ -51,6 +52,9 @@ function validationError(reply: FastifyReply, error: z.ZodError) {
 }
 
 function captureError(reply: FastifyReply, error: unknown) {
+  if (error instanceof CapturePhotoLimitError) {
+    return reply.code(409).send({ code: "CAPTURE_PHOTO_LIMIT", message: "La habitación alcanzó el límite de 250 fotos. Elimina las incorrectas o pendientes antes de continuar." });
+  }
   if (error instanceof CaptureRoomNotFoundError) {
     return reply.code(404).send({ code: "CAPTURE_ROOM_NOT_FOUND", message: "La habitación no existe" });
   }

@@ -9,10 +9,12 @@ import {
   captureRooms,
   captureSessions,
 } from "@nexa/database";
-import { and, asc, desc, eq, inArray } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, count } from "drizzle-orm";
+import { MAX_PHOTOS_PER_ROOM } from "@nexa/contracts";
 import type { CreateCapturePhotoUploadData, CreateCaptureRoomData } from "@nexa/contracts";
 import {
   CapturePhotoNotFoundError,
+  CapturePhotoLimitError,
   CaptureRoomNotFoundError,
   type CaptureRepository,
   type StoredCapturePhoto,
@@ -164,7 +166,12 @@ export class DrizzleCaptureRepository implements CaptureRepository {
   }) {
     const scoped = await this.findRoom(input.propertyId, input.roomId);
     if (!scoped) throw new CaptureRoomNotFoundError();
-    const [created] = await this.database
+    return this.database.transaction(async (tx) => {
+    const locked = await tx.select({ id: captureRooms.id }).from(captureRooms).where(eq(captureRooms.id, input.roomId)).for("update");
+    if (!locked.length) throw new CaptureRoomNotFoundError();
+    const [total] = await tx.select({ value: count() }).from(capturePhotos).where(eq(capturePhotos.captureRoomId, input.roomId));
+    if ((total?.value ?? 0) >= MAX_PHOTOS_PER_ROOM) throw new CapturePhotoLimitError();
+    const [created] = await tx
       .insert(capturePhotos)
       .values({
         id: input.photoId,
@@ -181,6 +188,7 @@ export class DrizzleCaptureRepository implements CaptureRepository {
       .returning();
     if (!created) throw new Error("No fue posible registrar la fotografía");
     return photo(created);
+    });
   }
 
   async findPhoto(propertyId: string, photoId: string) {

@@ -6,6 +6,7 @@ import type {
   ThreeDStatusResponse,
 } from "@nexa/contracts";
 import { useEffect, useRef, useState } from "react";
+import { MAX_PHOTOS_PER_ROOM } from "@nexa/contracts";
 import {
   createCaptureRoom,
   capturePhotoContentType,
@@ -156,6 +157,19 @@ export function Capture3DPanel({
     const roomId = targetRoom;
     if (!roomId || !files?.length) return;
     const selected = Array.from(files);
+    const room = session?.rooms.find((item) => item.id === roomId);
+    if ((room?.photos.length ?? 0) + selected.length > MAX_PHOTOS_PER_ROOM) {
+      setError(`Máximo ${MAX_PHOTOS_PER_ROOM} fotos por habitación, incluidas las pendientes. Selecciona menos fotos o elimina las incorrectas.`);
+      return;
+    }
+    const seen = new Set((room?.photos ?? []).filter((photo) => photo.status === "uploaded").map((photo) => `${photo.originalFileName}:${photo.byteSize}:${photo.capturedAt}`));
+    const repeated = selected.some((file) => {
+      const key = `${file.name}:${file.size}:${file.lastModified ? new Date(file.lastModified).toISOString() : null}`;
+      if (seen.has(key)) return true;
+      seen.add(key);
+      return false;
+    });
+    if (repeated && !window.confirm("Hay fotos posiblemente repetidas por nombre, tamaño y fecha. ¿Quieres subirlas igualmente?")) return;
     const invalid = selected.find((file) => !capturePhotoContentType(file) || file.size === 0 || file.size > maxFileBytes);
     if (invalid) {
       setError(`“${invalid.name}” no es JPG, PNG, WebP, HEIC/HEIF válido o supera 25 MB.`);
@@ -262,7 +276,7 @@ export function Capture3DPanel({
           <p className="eyebrow">Material técnico separado de la galería</p>
           <h2 id="capture-title">Captura 3D</h2>
           <p className="muted">Organiza las fotografías por habitación para preparar el futuro modelo 3D.</p>
-          <p className="muted">Máximo 25 MB por foto. Mantén esta pantalla abierta hasta que termine la subida. Las fotos guardadas se conservan al salir.</p>
+          <p className="muted">Máximo 25 MB por foto y {MAX_PHOTOS_PER_ROOM} fotos por habitación. Mantén esta pantalla abierta hasta que termine la subida. Las fotos guardadas se conservan al salir.</p>
         </div>
         {session && <span className="capture-total">{session.totalPhotoCount} fotos</span>}
       </div>

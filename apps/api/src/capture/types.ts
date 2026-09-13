@@ -43,3 +43,4 @@ export class CaptureRoomNotFoundError extends Error {}
 export class CapturePhotoNotFoundError extends Error {}
 export class CaptureUploadMissingError extends Error {}
 export class CaptureUploadMismatchError extends Error {}
+export class CapturePhotoLimitError extends Error {}
