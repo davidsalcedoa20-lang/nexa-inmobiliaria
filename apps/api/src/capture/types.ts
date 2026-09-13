@@ -14,6 +14,7 @@ export type StoredCaptureSession = Omit<CaptureSession, "rooms"> & {
 
 export interface CaptureRepository {
   getSnapshot(propertyId: string): Promise<StoredCaptureSession | null>;
+  getSessionSnapshot(propertyId: string, sessionId: string): Promise<StoredCaptureSession | null>;
   getOrCreateActiveSession(propertyId: string, administratorId: string): Promise<StoredCaptureSession>;
   createRoom(
     propertyId: string,

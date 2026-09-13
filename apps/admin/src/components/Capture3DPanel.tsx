@@ -45,12 +45,12 @@ const threeDLabels: Record<ThreeDStatus, string> = {
 };
 
 const threeDHelp: Record<ThreeDStatus, string> = {
-  not_started: "Cuando termines la captura podrás preparar la experiencia 3D simulada.",
+  not_started: "Cuando termines la captura podrás enviar las fotos al procesador 3D.",
   uploading: "Las fotografías técnicas todavía se están preparando.",
   queued: "El trabajo fue registrado y espera comenzar.",
-  processing: "El proveedor está preparando la experiencia.",
-  review_required: "La preparación simulada terminó. Revísala y publícala cuando corresponda.",
-  ready: "La experiencia simulada está aprobada. No se ha generado ningún modelo real.",
+  processing: "El computador está reconstruyendo y optimizando la experiencia.",
+  review_required: "El modelo terminó. Revísalo antes de publicarlo.",
+  ready: "La experiencia 3D está aprobada y lista.",
   failed: "La preparación no terminó correctamente. Puedes intentarlo de nuevo.",
 };
 
@@ -228,7 +228,7 @@ export function Capture3DPanel({
     try {
       const result = await prepareThreeDGeneration(propertyId);
       setThreeD(result);
-      setNotice("La preparación simulada terminó y está lista para revisión.");
+      setNotice("El trabajo quedó en cola. El computador lo procesará automáticamente.");
     } catch (requestError) {
       await getThreeDStatus(propertyId).then(setThreeD).catch(() => undefined);
       setError(message(requestError));
@@ -244,7 +244,7 @@ export function Capture3DPanel({
     try {
       const result = await publishThreeDExperience(propertyId);
       setThreeD(result);
-      setNotice("La experiencia 3D simulada quedó marcada como lista.");
+      setNotice("La experiencia 3D quedó marcada como lista.");
     } catch (requestError) {
       setError(message(requestError));
     } finally {
@@ -389,21 +389,37 @@ export function Capture3DPanel({
               </div>
               <p>{threeD ? threeDHelp[threeD.status] : "Consultando el estado de preparación…"}</p>
               {threeD?.latestJob && (
-                <small>Proveedor: {threeD.latestJob.provider === "mock" ? "Simulado" : threeD.latestJob.provider}</small>
+                <small>Procesador: {threeD.latestJob.provider === "local-colmap" ? "Este computador" : threeD.latestJob.provider}</small>
+              )}
+              {threeD?.latestJob && ["queued", "processing"].includes(threeD.status) && (
+                <div className="reconstruction-progress" role="status">
+                  <span>{threeD.latestJob.progressPercent}% · {progressLabel(threeD.latestJob.progressStage)}</span>
+                  <progress value={threeD.latestJob.progressPercent} max={100} />
+                </div>
+              )}
+              {threeD?.latestJob?.errorMessage && (
+                <p className="form-error">{threeD.latestJob.errorMessage}</p>
               )}
             </div>
-            {threeD?.status === "review_required" ? (
-              <button
-                className="primary-button"
-                type="button"
-                disabled={!canPublish || threeDBusy}
-                onClick={() => void publishThreeD()}
-                title={canPublish ? undefined : "Solo un administrador puede publicar"}
-              >
-                {threeDBusy ? "Publicando…" : canPublish ? "Publicar experiencia 3D" : "Pendiente de administrador"}
-              </button>
-            ) : threeD?.status === "ready" ? (
-              <span className="three-d-ready-mark" aria-label="Experiencia 3D lista">✓ Lista</span>
+            {threeD?.status === "review_required" || threeD?.status === "ready" ? (
+              <div className="three-d-result-actions">
+                {threeD.status === "review_required" ? (
+                  <button
+                    className="primary-button"
+                    type="button"
+                    disabled={!canPublish || threeDBusy}
+                    onClick={() => void publishThreeD()}
+                    title={canPublish ? undefined : "Solo un administrador puede publicar"}
+                  >
+                    {threeDBusy ? "Publicando…" : canPublish ? "Publicar experiencia 3D" : "Pendiente de administrador"}
+                  </button>
+                ) : (
+                  <span className="three-d-ready-mark" aria-label="Experiencia 3D lista">✓ Lista</span>
+                )}
+                <button className="secondary-button" type="button" disabled={threeDBusy} onClick={() => void prepareThreeD()}>
+                  Reprocesar
+                </button>
+              </div>
             ) : (
               <button
                 className="primary-button"
@@ -426,6 +442,23 @@ export function Capture3DPanel({
               </button>
             )}
           </div>
+          {threeD?.latestJob?.modelUrl && (
+            <div className="three-d-review">
+              <div>
+                <strong>Vista previa del modelo</strong>
+                <p>Arrastra con un dedo para girar y usa dos dedos para acercar.</p>
+              </div>
+              <model-viewer
+                src={threeD.latestJob.modelUrl}
+                {...(threeD.latestJob.previewUrl ? { poster: threeD.latestJob.previewUrl } : {})}
+                alt="Modelo 3D reconstruido de la propiedad"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1"
+                exposure="1.1"
+              />
+            </div>
+          )}
         </>
       )}
     </section>
@@ -434,4 +467,16 @@ export function Capture3DPanel({
 
 function message(error: unknown) {
   return error instanceof Error ? error.message : "No fue posible completar la operación";
+}
+
+function progressLabel(stage: string) {
+  return ({
+    queued: "Esperando computador",
+    downloading: "Descargando fotografías",
+    reconstructing: "Reconstruyendo geometría",
+    texturing: "Aplicando texturas",
+    optimizing: "Optimizando para web",
+    uploading: "Subiendo resultado",
+    complete: "Completado",
+  } as Record<string, string>)[stage] ?? stage;
 }

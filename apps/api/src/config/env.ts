@@ -15,6 +15,8 @@ const EnvironmentSchema = z.object({
   R2_BUCKET_NAME: z.string().min(3),
   R2_ENDPOINT: z.string().url(),
   R2_REGION: z.string().default("auto"),
+  WORKER_TOKEN: z.string().min(32),
+  RECONSTRUCTION_PROVIDER: z.string().trim().min(1).default("local-colmap"),
 });
 
 export function readEnvironment(environment: NodeJS.ProcessEnv = process.env) {

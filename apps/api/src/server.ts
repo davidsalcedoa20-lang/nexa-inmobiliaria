@@ -8,17 +8,24 @@ import { DrizzleCaptureRepository } from "./capture/drizzle-capture-repository.j
 import { readEnvironment } from "./config/env.js";
 import { DrizzlePropertyRepository } from "./properties/drizzle-property-repository.js";
 import { DrizzleReconstructionRepository } from "./reconstruction/drizzle-reconstruction-repository.js";
-import { MockThreeDReconstructionProvider } from "./reconstruction/provider.js";
 import { ThreeDReconstructionService } from "./reconstruction/service.js";
 import { R2ObjectStorageProvider } from "./storage/r2-object-storage-provider.js";
 
 const environment = readEnvironment();
 const connection = createDatabase(environment.DATABASE_URL);
 const captures = new DrizzleCaptureRepository(connection.db);
+const objectStorage = new R2ObjectStorageProvider({
+  endpoint: environment.R2_ENDPOINT,
+  region: environment.R2_REGION,
+  bucketName: environment.R2_BUCKET_NAME,
+  accessKeyId: environment.R2_ACCESS_KEY_ID,
+  secretAccessKey: environment.R2_SECRET_ACCESS_KEY,
+});
 const reconstruction = new ThreeDReconstructionService(
   captures,
   new DrizzleReconstructionRepository(connection.db),
-  new MockThreeDReconstructionProvider(),
+  objectStorage,
+  environment.RECONSTRUCTION_PROVIDER,
 );
 
 const app = Fastify({ logger: { level: environment.LOG_LEVEL } });
@@ -29,13 +36,8 @@ await registerApplication(app, {
   properties: new DrizzlePropertyRepository(connection.db),
   captures,
   reconstruction,
-  objectStorage: new R2ObjectStorageProvider({
-    endpoint: environment.R2_ENDPOINT,
-    region: environment.R2_REGION,
-    bucketName: environment.R2_BUCKET_NAME,
-    accessKeyId: environment.R2_ACCESS_KEY_ID,
-    secretAccessKey: environment.R2_SECRET_ACCESS_KEY,
-  }),
+  objectStorage,
+  workerToken: environment.WORKER_TOKEN,
   adminOrigins: environment.adminOrigins,
 });
 

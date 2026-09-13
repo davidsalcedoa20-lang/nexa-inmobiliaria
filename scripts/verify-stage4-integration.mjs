@@ -3,7 +3,6 @@ import { adminProfiles, createDatabase, eq, properties } from "../packages/datab
 import { DrizzleCaptureRepository } from "../apps/api/dist/capture/drizzle-capture-repository.js";
 import { DrizzlePropertyRepository } from "../apps/api/dist/properties/drizzle-property-repository.js";
 import { DrizzleReconstructionRepository } from "../apps/api/dist/reconstruction/drizzle-reconstruction-repository.js";
-import { MockThreeDReconstructionProvider } from "../apps/api/dist/reconstruction/provider.js";
 import { ThreeDReconstructionService } from "../apps/api/dist/reconstruction/service.js";
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -13,10 +12,18 @@ const connection = createDatabase(databaseUrl);
 const propertyRepository = new DrizzlePropertyRepository(connection.db);
 const captureRepository = new DrizzleCaptureRepository(connection.db);
 const reconstructionRepository = new DrizzleReconstructionRepository(connection.db);
+const verificationStorage = {
+  async createUploadUrl() { return "https://storage.test/upload"; },
+  async createDownloadUrl(objectKey) { return `https://storage.test/${objectKey}`; },
+  async headObject(objectKey) {
+    return { contentLength: objectKey.endsWith(".glb") ? 4096 : 1024, contentType: null, etag: "verification" };
+  },
+  async deleteObject() {},
+};
 const service = new ThreeDReconstructionService(
   captureRepository,
   reconstructionRepository,
-  new MockThreeDReconstructionProvider(),
+  verificationStorage,
 );
 let temporaryPropertyId = null;
 
@@ -80,9 +87,30 @@ try {
   });
   await captureRepository.markPhotoUploaded(created.id, photoId, { etag: "mock-etag" });
 
-  const reviewed = await service.prepare(created.id, administrator.id);
-  if (reviewed.status !== "review_required" || reviewed.latestJob?.provider !== "mock") {
-    throw new Error("El proveedor mock no terminó en revisión");
+  const queued = await service.prepare(created.id, administrator.id);
+  if (queued.status !== "queued" || queued.latestJob?.provider !== "local-colmap") {
+    throw new Error("El trabajo no entró a la cola local");
+  }
+
+  const workerId = "stage4-verification-worker";
+  const assignment = await service.claim(workerId);
+  if (!assignment || assignment.propertyId !== created.id || assignment.rooms[0]?.photos.length !== 1) {
+    throw new Error("El procesador no recibió la captura esperada");
+  }
+  await service.progress(assignment.jobId, {
+    workerId,
+    progressPercent: 50,
+    progressStage: "reconstructing",
+  });
+  await service.complete(assignment.jobId, {
+    workerId,
+    modelObjectKey: `verification/stage4/${assignment.jobId}.glb`,
+    modelByteSize: 4096,
+    previewObjectKey: `verification/stage4/${assignment.jobId}.png`,
+  });
+  const reviewed = await service.getStatus(created.id);
+  if (reviewed.status !== "review_required" || reviewed.latestJob?.progressPercent !== 100) {
+    throw new Error("El resultado no quedó listo para revisión");
   }
 
   const ready = await service.publish(created.id, administrator.id);
@@ -96,8 +124,10 @@ try {
   console.log(JSON.stringify({
     ok: true,
     initialStatus: created.threeDStatus,
+    queuedStatus: queued.status,
+    processingAssigned: true,
     preparedStatus: reviewed.status,
-    provider: reviewed.latestJob.provider,
+    provider: reviewed.latestJob?.provider,
     publishedStatus: ready.status,
     cleanupComplete: true,
   }, null, 2));

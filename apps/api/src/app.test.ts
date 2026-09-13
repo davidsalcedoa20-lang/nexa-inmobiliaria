@@ -76,7 +76,7 @@ describe("API stage 4", () => {
     applications.push(app);
     const response = await app.inject({ method: "GET", url: "/health" });
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toMatchObject({ status: "ok", service: "nexa-api", stage: 4 });
+    expect(response.json()).toMatchObject({ status: "ok", service: "nexa-api", stage: 6 });
   });
 
   it("rejects requests without a session", async () => {

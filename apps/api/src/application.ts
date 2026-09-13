@@ -8,10 +8,12 @@ import {
   registerReconstructionRoutes,
   type ReconstructionRouteDependencies,
 } from "./routes/reconstruction.js";
+import { registerWorkerReconstructionRoutes } from "./routes/worker-reconstruction.js";
 
 export type BuildAppOptions = AuthDependencies & PropertyRouteDependencies &
   Partial<Pick<CaptureRouteDependencies, "captures" | "objectStorage">> & {
   reconstruction?: ReconstructionRouteDependencies["reconstruction"];
+  workerToken?: string;
   adminOrigins?: string[];
   logger?: boolean | { level: string };
 };
@@ -37,7 +39,7 @@ export async function registerApplication(app: FastifyInstance, options: BuildAp
   app.get("/health", async () => ({
     status: "ok",
     service: "nexa-api",
-    stage: 4,
+    stage: 6,
   }));
 
   await registerAuthRoutes(app, options);
@@ -53,6 +55,12 @@ export async function registerApplication(app: FastifyInstance, options: BuildAp
     await registerReconstructionRoutes(app, {
       ...options,
       reconstruction: options.reconstruction,
+    });
+  }
+  if (options.reconstruction && options.workerToken) {
+    await registerWorkerReconstructionRoutes(app, {
+      reconstruction: options.reconstruction,
+      workerToken: options.workerToken,
     });
   }
 

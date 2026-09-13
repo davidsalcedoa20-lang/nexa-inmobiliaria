@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { check, index, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { check, index, integer, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 import { adminProfiles } from "./admin-profiles.js";
 import { captureSessions } from "./capture.js";
 import { threeDStatus } from "./enums.js";
@@ -18,7 +18,17 @@ export const reconstructionJobs = pgTable(
     provider: text("provider").notNull().default("mock"),
     providerJobId: text("provider_job_id"),
     status: threeDStatus("status").notNull().default("queued"),
+    progressPercent: integer("progress_percent").notNull().default(0),
+    progressStage: text("progress_stage").notNull().default("queued"),
+    sourcePhotoCount: integer("source_photo_count").notNull().default(0),
     errorMessage: text("error_message"),
+    workerId: text("worker_id"),
+    attemptCount: integer("attempt_count").notNull().default(0),
+    leaseExpiresAt: timestamp("lease_expires_at", { withTimezone: true, mode: "date" }),
+    heartbeatAt: timestamp("heartbeat_at", { withTimezone: true, mode: "date" }),
+    modelObjectKey: text("model_object_key"),
+    modelByteSize: integer("model_byte_size"),
+    previewObjectKey: text("preview_object_key"),
     createdBy: uuid("created_by")
       .notNull()
       .references(() => adminProfiles.id, { onDelete: "restrict" }),
@@ -36,6 +46,19 @@ export const reconstructionJobs = pgTable(
       .on(table.propertyId)
       .where(sql`${table.status} in ('queued', 'processing')`),
     check("reconstruction_jobs_provider_not_blank", sql`length(trim(${table.provider})) > 0`),
+    check(
+      "reconstruction_jobs_progress_valid",
+      sql`${table.progressPercent} between 0 and 100`,
+    ),
+    check(
+      "reconstruction_jobs_source_photo_count_valid",
+      sql`${table.sourcePhotoCount} >= 0`,
+    ),
+    check("reconstruction_jobs_attempt_count_valid", sql`${table.attemptCount} >= 0`),
+    check(
+      "reconstruction_jobs_model_byte_size_valid",
+      sql`${table.modelByteSize} is null or ${table.modelByteSize} > 0`,
+    ),
     check(
       "reconstruction_jobs_runnable_status",
       sql`${table.status} in ('queued', 'processing', 'review_required', 'ready', 'failed')`,

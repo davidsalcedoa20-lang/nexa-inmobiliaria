@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run build -w @nexa/api && npm run build -w @nexa/admin",
-    "typecheck": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run typecheck -w @nexa/api && npm run typecheck -w @nexa/admin",
+    "typecheck": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run typecheck -w @nexa/api && npm run typecheck -w @nexa/admin && npm run typecheck -w @nexa/worker",
     "test": "npm run test --workspaces --if-present",
     "verify:public": "node scripts/verify-public-site.mjs",
     "verify:supabase": "node --env-file=.env scripts/verify-supabase-local.mjs",
@@ -16,10 +16,13 @@
     "verify:stage3": "node --env-file=.env scripts/verify-stage3-integration.mjs",
     "verify:stage4": "node --env-file=.env scripts/verify-stage4-integration.mjs",
     "verify:r2": "node --env-file=.env scripts/verify-r2-local.mjs",
+    "configure:worker": "node scripts/configure-local-worker.mjs",
     "db:generate": "npm run db:generate -w @nexa/database",
     "db:migrate": "npm run db:migrate -w @nexa/database",
     "dev:api": "npm run dev -w @nexa/api",
-    "dev:admin": "npm run dev -w @nexa/admin"
+    "dev:admin": "npm run dev -w @nexa/admin",
+    "worker": "npm run dev -w @nexa/worker",
+    "worker:once": "npm run once -w @nexa/worker"
   },
   "engines": {
     "node": ">=24.0.0"

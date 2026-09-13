@@ -5,7 +5,6 @@ import type { ReconstructionService } from "../reconstruction/service.js";
 import {
   ReconstructionCaptureNotReadyError,
   ReconstructionPropertyNotFoundError,
-  ReconstructionProviderError,
   ReconstructionStateConflictError,
 } from "../reconstruction/types.js";
 
@@ -29,12 +28,6 @@ function reconstructionError(reply: FastifyReply, error: unknown) {
     return reply.code(409).send({
       code: "THREE_D_STATE_CONFLICT",
       message: "El estado actual de la experiencia 3D no permite esta acción",
-    });
-  }
-  if (error instanceof ReconstructionProviderError) {
-    return reply.code(502).send({
-      code: "THREE_D_PROVIDER_FAILED",
-      message: "La preparación 3D falló. Puedes intentarlo nuevamente.",
     });
   }
   throw error;

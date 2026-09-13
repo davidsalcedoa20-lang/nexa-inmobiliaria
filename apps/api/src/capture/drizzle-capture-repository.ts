@@ -82,6 +82,20 @@ export class DrizzleCaptureRepository implements CaptureRepository {
     const record = await this.findLatestSession(propertyId);
     if (!record) return null;
 
+    return this.hydrateSession(record);
+  }
+
+  async getSessionSnapshot(propertyId: string, sessionId: string) {
+    const [record] = await this.database
+      .select()
+      .from(captureSessions)
+      .where(and(eq(captureSessions.id, sessionId), eq(captureSessions.propertyId, propertyId)))
+      .limit(1);
+    return record ? this.hydrateSession(record) : null;
+  }
+
+  private async hydrateSession(record: CaptureSessionRecord): Promise<StoredCaptureSession> {
+
     const roomRecords = await this.database
       .select()
       .from(captureRooms)

@@ -36,6 +36,13 @@
       "when": 1789234631308,
       "tag": "0004_known_blindfold",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789336752618,
+      "tag": "0005_youthful_red_shift",
+      "breakpoints": true
     }
   ]
 }
