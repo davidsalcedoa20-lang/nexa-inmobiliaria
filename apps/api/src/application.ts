@@ -27,6 +27,11 @@ export async function registerApplication(app: FastifyInstance, options: BuildAp
   await app.register(cors, {
     origin: options.adminOrigins ?? ["http://localhost:5173", "http://127.0.0.1:5173"],
     credentials: true,
+    methods: ["GET", "HEAD", "POST", "PATCH", "DELETE", "OPTIONS"],
+  });
+
+  app.addHook("onSend", async (_request, reply) => {
+    reply.header("Cache-Control", "no-store");
   });
 
   app.get("/health", async () => ({

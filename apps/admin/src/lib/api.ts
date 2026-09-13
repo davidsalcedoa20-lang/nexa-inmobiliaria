@@ -155,6 +155,7 @@ export async function deleteCaptureRoom(propertyId: string, roomId: string) {
 }
 
 export async function uploadCapturePhoto(propertyId: string, roomId: string, file: File) {
+  const accessToken = await currentAccessToken();
   const dimensions = await readImageDimensions(file);
   const contentType = capturePhotoContentType(file);
   if (!contentType) {
@@ -176,21 +177,38 @@ export async function uploadCapturePhoto(propertyId: string, roomId: string, fil
     },
   );
 
+  await retryCaptureRequest(async () => {
   const upload = await fetch(ticketResponse.data.uploadUrl, {
     method: "PUT",
     headers: { "Content-Type": contentType },
     body: file,
+    signal: AbortSignal.timeout(120_000),
   });
   if (!upload.ok) {
     throw new ApiError("No fue posible subir la fotografía a R2", upload.status, "STORAGE_UPLOAD_FAILED");
   }
+  });
 
-  const complete = await request<{ data: CapturePhoto }>(
+  const complete = await retryCaptureRequest(() => request<{ data: CapturePhoto }>(
     `/api/v1/properties/${propertyId}/capture/photos/${ticketResponse.data.photo.id}/complete`,
-    await currentAccessToken(),
+    accessToken,
     { method: "POST", body: JSON.stringify({}) },
-  );
+  ));
   return complete.data;
+}
+
+async function retryCaptureRequest<T>(operation: () => Promise<T>): Promise<T> {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      return await operation();
+    } catch (error) {
+      const transient = error instanceof TypeError ||
+        (error instanceof DOMException && error.name === "TimeoutError") ||
+        (error instanceof ApiError && (error.status >= 500 || error.status === 429));
+      if (!transient || attempt >= 2) throw error;
+      await new Promise((resolve) => window.setTimeout(resolve, 1000 * (attempt + 1)));
+    }
+  }
 }
 
 export function capturePhotoContentType(file: Pick<File, "name" | "type">) {

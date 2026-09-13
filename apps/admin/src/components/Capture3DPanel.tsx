@@ -156,7 +156,7 @@ export function Capture3DPanel({
     const roomId = targetRoom;
     if (!roomId || !files?.length) return;
     const selected = Array.from(files);
-    const invalid = selected.find((file) => !capturePhotoContentType(file) || file.size > maxFileBytes);
+    const invalid = selected.find((file) => !capturePhotoContentType(file) || file.size === 0 || file.size > maxFileBytes);
     if (invalid) {
       setError(`“${invalid.name}” no es JPG, PNG, WebP, HEIC/HEIF válido o supera 25 MB.`);
       return;
@@ -165,15 +165,23 @@ export function Capture3DPanel({
     setError(null);
     setNotice(null);
     setUploading({ roomId, current: 0, total: selected.length });
+    let saved = 0;
+    const failed: string[] = [];
     try {
       for (let index = 0; index < selected.length; index += 1) {
         const file = selected[index];
         if (!file) continue;
+        try {
+          await uploadCapturePhoto(propertyId, roomId, file);
+          saved += 1;
+        } catch {
+          failed.push(file.name);
+        }
         setUploading({ roomId, current: index + 1, total: selected.length });
-        await uploadCapturePhoto(propertyId, roomId, file);
       }
       await reload();
-      setNotice(`${selected.length} ${selected.length === 1 ? "fotografía guardada" : "fotografías guardadas"}.`);
+      setNotice(`${saved} ${saved === 1 ? "fotografía guardada" : "fotografías guardadas"}.`);
+      if (failed.length) setError(`No se pudieron confirmar ${failed.length} fotos: ${failed.join(", ")}. Revisa las miniaturas antes de volver a seleccionarlas.`);
     } catch (requestError) {
       await reload().catch(() => undefined);
       setError(message(requestError));
@@ -254,6 +262,7 @@ export function Capture3DPanel({
           <p className="eyebrow">Material técnico separado de la galería</p>
           <h2 id="capture-title">Captura 3D</h2>
           <p className="muted">Organiza las fotografías por habitación para preparar el futuro modelo 3D.</p>
+          <p className="muted">Máximo 25 MB por foto. Mantén esta pantalla abierta hasta que termine la subida. Las fotos guardadas se conservan al salir.</p>
         </div>
         {session && <span className="capture-total">{session.totalPhotoCount} fotos</span>}
       </div>
@@ -335,7 +344,7 @@ export function Capture3DPanel({
 
                     {roomUpload && (
                       <div className="upload-progress" role="status">
-                        <span>Subiendo {roomUpload.current} de {roomUpload.total}</span>
+                        <span>Procesadas {roomUpload.current} de {roomUpload.total}</span>
                         <progress value={roomUpload.current} max={roomUpload.total} />
                       </div>
                     )}

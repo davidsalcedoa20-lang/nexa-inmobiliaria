@@ -50,6 +50,23 @@ afterEach(async () => {
 });
 
 describe("API stage 4", () => {
+  it("allows editing and deleting from the configured admin origin", async () => {
+    const origin = "https://nexa-inmobiliaria-admin.vercel.app";
+    const app = await buildApp({ tokenVerifier: verifier, adminProfiles: profiles(true), properties: propertyRepository, adminOrigins: [origin] });
+    applications.push(app);
+    for (const method of ["PATCH", "DELETE"]) {
+      const response = await app.inject({ method: "OPTIONS", url: "/api/v1/properties/example", headers: {
+        origin, "access-control-request-method": method, "access-control-request-headers": "authorization,content-type",
+      } });
+      expect(response.statusCode).toBe(204);
+      expect(response.headers["access-control-allow-origin"]).toBe(origin);
+      expect(response.headers["access-control-allow-methods"]).toContain(method);
+    }
+    const denied = await app.inject({ method: "OPTIONS", url: "/api/v1/auth/me", headers: { origin: "https://untrusted.example", "access-control-request-method": "GET" } });
+    expect(denied.headers["access-control-allow-origin"]).toBeUndefined();
+    const privateResponse = await app.inject({ method: "GET", url: "/api/v1/auth/me", headers: { authorization: "Bearer valid-token" } });
+    expect(privateResponse.headers["cache-control"]).toBe("no-store");
+  });
   it("reports service health without database access", async () => {
     const app = await buildApp({
       tokenVerifier: verifier,
