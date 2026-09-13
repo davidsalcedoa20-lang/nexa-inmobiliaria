@@ -5,7 +5,7 @@ import type {
   ThreeDStatusResponse,
 } from "@nexa/contracts";
 import { afterEach, describe, expect, it } from "vitest";
-import { buildApp } from "../app.js";
+import { buildApp } from "../application.js";
 import type { AdminProfileRepository, TokenVerifier } from "../auth/types.js";
 import type { CaptureRepository, StoredCaptureSession } from "../capture/types.js";
 import type { PropertyRepository } from "../properties/types.js";

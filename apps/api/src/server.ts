@@ -1,5 +1,7 @@
 import { createDatabase } from "@nexa/database";
-import { buildApp } from "./app.js";
+import Fastify from "fastify";
+import type { IncomingMessage, ServerResponse } from "node:http";
+import { registerApplication } from "./application.js";
 import { DrizzleAdminProfileRepository } from "./auth/drizzle-admin-profile-repository.js";
 import { SupabaseTokenVerifier } from "./auth/supabase-token-verifier.js";
 import { DrizzleCaptureRepository } from "./capture/drizzle-capture-repository.js";
@@ -19,7 +21,9 @@ const reconstruction = new ThreeDReconstructionService(
   new MockThreeDReconstructionProvider(),
 );
 
-const app = await buildApp({
+const app = Fastify({ logger: { level: environment.LOG_LEVEL } });
+
+await registerApplication(app, {
   tokenVerifier: new SupabaseTokenVerifier(environment.SUPABASE_URL),
   adminProfiles: new DrizzleAdminProfileRepository(connection.db),
   properties: new DrizzlePropertyRepository(connection.db),
@@ -33,7 +37,6 @@ const app = await buildApp({
     secretAccessKey: environment.R2_SECRET_ACCESS_KEY,
   }),
   adminOrigins: environment.adminOrigins,
-  logger: { level: environment.LOG_LEVEL },
 });
 
 const shutdown = async () => {
@@ -41,7 +44,14 @@ const shutdown = async () => {
   await connection.close();
 };
 
-process.on("SIGINT", () => void shutdown());
-process.on("SIGTERM", () => void shutdown());
+if (!process.env.VERCEL) {
+  process.on("SIGINT", () => void shutdown());
+  process.on("SIGTERM", () => void shutdown());
 
-await app.listen({ port: environment.PORT, host: environment.HOST });
+  await app.listen({ port: environment.PORT, host: environment.HOST });
+}
+
+export default async function handler(request: IncomingMessage, response: ServerResponse) {
+  await app.ready();
+  app.server.emit("request", request, response);
+}

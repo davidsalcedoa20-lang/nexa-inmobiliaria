@@ -1,5 +1,5 @@
 import cors from "@fastify/cors";
-import Fastify from "fastify";
+import Fastify, { type FastifyInstance } from "fastify";
 import type { AuthDependencies } from "./auth/authorize.js";
 import { registerAuthRoutes } from "./routes/auth.js";
 import { registerCaptureRoutes, type CaptureRouteDependencies } from "./routes/capture.js";
@@ -18,6 +18,11 @@ export type BuildAppOptions = AuthDependencies & PropertyRouteDependencies &
 
 export async function buildApp(options: BuildAppOptions) {
   const app = Fastify({ logger: options.logger ?? false });
+
+  return registerApplication(app, options);
+}
+
+export async function registerApplication(app: FastifyInstance, options: BuildAppOptions) {
 
   await app.register(cors, {
     origin: options.adminOrigins ?? ["http://localhost:5173", "http://127.0.0.1:5173"],
