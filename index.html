@@ -10,6 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/redesign.css">
+  <link rel="stylesheet" href="css/experiencia-3d.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body data-page="home">
   <!-- ========== HEADER ========== -->
@@ -65,7 +67,7 @@
         <p class="hero__subtitle">Conoce propiedades reales en Pamplona mediante recorridos, imágenes y visualizaciones de cada proyecto.</p>
         <div class="hero__actions">
           <a href="#propiedades" class="btn btn--gold">Explorar propiedades</a>
-          <a href="#tecnologia" class="btn btn--ghost">
+          <a href="#experiencia-3d" class="btn btn--ghost">
             <span class="btn__play" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.5 7.5v9l7.5-4.5-7.5-4.5Z"/>
@@ -237,6 +239,53 @@
             <h3>Míralo en tu terreno con AR</h3>
             <p>Proyecta una vivienda en el espacio real desde un teléfono compatible y comprende cómo se implantará.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EXPERIENCIA 3D INTERACTIVA ========== -->
+    <section class="home-3d section" id="experiencia-3d" aria-labelledby="home-3d-title">
+      <div class="container home-3d__grid">
+        <div class="home-3d__content reveal is-visible">
+          <p class="section-eyebrow">Experiencia interactiva</p>
+          <h2 class="section-title" id="home-3d-title">Explora una propuesta arquitectónica en 3D</h2>
+          <p class="home-3d__lead">Gira el modelo, acércate a sus espacios y, desde un teléfono compatible, proyéctalo en realidad aumentada.</p>
+          <ul class="home-3d__features">
+            <li><strong>Vista 360°</strong><span>Controla el modelo con el mouse o con tus dedos.</span></li>
+            <li><strong>Realidad aumentada</strong><span>Visualiza la propuesta a escala desde un dispositivo compatible.</span></li>
+            <li><strong>Modelado propio</strong><span>Demuestra cómo presentamos ideas antes de construir.</span></li>
+          </ul>
+          <p class="home-3d__disclaimer">Esta es una demostración de la tecnología de visualización y no corresponde a una de las propiedades actualmente publicadas.</p>
+        </div>
+
+        <div class="home-3d__viewer reveal is-visible" id="home3dViewer" data-model-status="loading">
+          <div class="home-3d__toolbar" aria-label="Controles del modelo 3D">
+            <button type="button" class="home-3d__control is-active" id="home3dRotate" aria-pressed="true">Rotación automática</button>
+            <button type="button" class="home-3d__control" id="home3dReset">Vista inicial</button>
+          </div>
+          <model-viewer
+            id="homeModelViewer"
+            src="assets/models/casa-modelo.glb"
+            ios-src="assets/models/casa-modelo.usdz"
+            poster="assets/images/casa-modelo-render.png"
+            alt="Modelo 3D interactivo de una propuesta arquitectónica de vivienda"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            ar-scale="fixed"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="18deg"
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="1"
+            loading="lazy"
+            reveal="auto"
+          >
+            <button slot="ar-button" class="btn btn--gold home-3d__ar">Ver en mi espacio</button>
+            <div slot="progress-bar" class="home-3d__progress"><span id="home3dProgress"></span></div>
+          </model-viewer>
+          <p class="home-3d__status" id="home3dStatus" role="status">Cargando experiencia 3D…</p>
         </div>
       </div>
     </section>
@@ -752,6 +801,7 @@
     </div>
   </footer>
 
+  <script src="js/experiencia-3d.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

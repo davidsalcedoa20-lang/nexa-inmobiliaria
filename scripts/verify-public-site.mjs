@@ -85,7 +85,13 @@ for (const name of ["Local Rodolfo", "Lote en San Sebastián", "Altos de San Seb
 assert.match(homePage, /id="casas"[^>]+hidden/);
 assert.match(homePage, /id="lotes"[^>]+hidden/);
 assert.match(homePage, /id="sobreplano"[^>]+hidden/);
+assert.match(homePage, /id="experiencia-3d"/);
+assert.match(homePage, /<model-viewer[\s\S]+assets\/models\/casa-modelo\.glb/);
+for (const model of ["assets/models/casa-modelo.glb", "assets/models/casa-modelo.usdz"]) {
+  const metadata = await stat(path.join(root, model));
+  assert.ok(metadata.size > 0, `${model} está vacío`);
+}
 
 assert.deepEqual(errors, [], `Errores del sitio público:\n${errors.join("\n")}`);
 console.info(`Verificados ${htmlFiles.length} documentos HTML, sus enlaces, recursos y anclas.`);
-console.info("Catálogo real, portadas optimizadas y WhatsApp 573176740334 verificados.");
+console.info("Catálogo real, visor GLB/USDZ, portadas optimizadas y WhatsApp 573176740334 verificados.");
