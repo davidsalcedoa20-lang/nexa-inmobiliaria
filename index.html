@@ -253,7 +253,7 @@
           <p class="home-3d__lead">Gira el modelo, acércate a sus espacios y, desde un teléfono compatible, proyéctalo en realidad aumentada.</p>
           <ul class="home-3d__features">
             <li><strong>Vista 360°</strong><span>Controla el modelo con el mouse o con tus dedos.</span></li>
-            <li><strong>Realidad aumentada</strong><span>Visualiza la propuesta a escala desde un dispositivo compatible.</span></li>
+            <li><strong>Realidad aumentada</strong><span>Visualiza la propuesta a escala o redúcela para verla sobre una mesa.</span></li>
             <li><strong>Modelado propio</strong><span>Demuestra cómo presentamos ideas antes de construir.</span></li>
           </ul>
           <p class="home-3d__disclaimer">Esta es una demostración de la tecnología de visualización y no corresponde a una de las propiedades actualmente publicadas.</p>
@@ -272,7 +272,7 @@
             alt="Modelo 3D interactivo de una propuesta arquitectónica de vivienda"
             ar
             ar-modes="webxr scene-viewer quick-look"
-            ar-scale="fixed"
+            ar-scale="auto"
             camera-controls
             auto-rotate
             auto-rotate-delay="0"
@@ -286,6 +286,7 @@
             <button slot="ar-button" class="btn btn--gold home-3d__ar">Ver en mi espacio</button>
             <div slot="progress-bar" class="home-3d__progress"><span id="home3dProgress"></span></div>
           </model-viewer>
+          <p class="home-3d__ar-tip" aria-hidden="true">En realidad aumentada, usa dos dedos para ampliar o reducir el modelo.</p>
           <p class="home-3d__status" id="home3dStatus" role="status">Cargando experiencia 3D…</p>
         </div>
       </div>

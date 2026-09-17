@@ -116,6 +116,23 @@
   z-index: 5;
 }
 
+.home-3d__ar-tip {
+  position: absolute;
+  z-index: 5;
+  right: 16px;
+  bottom: 72px;
+  max-width: 230px;
+  margin: 0;
+  padding: 8px 10px;
+  color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(4, 22, 34, 0.78);
+  backdrop-filter: blur(10px);
+  font-size: 0.71rem;
+  line-height: 1.35;
+}
+
 .home-3d__progress {
   position: absolute;
   right: 0;
@@ -186,5 +203,11 @@
   .home-3d__ar {
     right: 12px;
     bottom: 14px;
+  }
+
+  .home-3d__ar-tip {
+    right: 12px;
+    bottom: 66px;
+    max-width: 205px;
   }
 }
