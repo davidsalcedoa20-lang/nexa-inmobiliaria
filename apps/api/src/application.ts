@@ -4,6 +4,7 @@ import type { AuthDependencies } from "./auth/authorize.js";
 import { registerAuthRoutes } from "./routes/auth.js";
 import { registerCaptureRoutes, type CaptureRouteDependencies } from "./routes/capture.js";
 import { registerPropertyRoutes, type PropertyRouteDependencies } from "./routes/properties.js";
+import { registerPublicMediaRoutes } from "./routes/public-media.js";
 import {
   registerReconstructionRoutes,
   type ReconstructionRouteDependencies,
@@ -44,6 +45,9 @@ export async function registerApplication(app: FastifyInstance, options: BuildAp
 
   await registerAuthRoutes(app, options);
   await registerPropertyRoutes(app, options);
+  if (options.objectStorage) {
+    await registerPublicMediaRoutes(app, options.objectStorage);
+  }
   if (options.captures && options.objectStorage) {
     await registerCaptureRoutes(app, {
       ...options,

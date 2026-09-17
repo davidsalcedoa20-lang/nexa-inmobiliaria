@@ -8,6 +8,7 @@ const htmlFiles = [
   "pages/casa.html",
   "pages/lote.html",
   "pages/lote-reservas-del-lago.html",
+  "pages/propiedad.html",
   "pages/proyecto.html",
   "pages/proyectos.html",
   "pages/sobreplano.html",
@@ -66,14 +67,25 @@ const allMarkup = (await Promise.all(htmlFiles.map((file) => readFile(path.join(
 assert.match(allMarkup, /https:\/\/wa\.me\/573176740334/);
 assert.doesNotMatch(allMarkup, /wa\.me\/(?!573176740334)\d+/);
 
-const reservasPage = await readFile(path.join(root, "pages/lote-reservas-del-lago.html"), "utf8");
-const glbPath = path.join(root, "assets/models/casa-modelo.glb");
-const usdzPath = path.join(root, "assets/models/casa-modelo.usdz");
-const [glb, usdz] = await Promise.all([stat(glbPath), stat(usdzPath)]);
-assert.match(reservasPage, /<model-viewer/);
-assert.ok(glb.size > 0, "El archivo GLB de Reservas del Lago está vacío");
-assert.ok(usdz.size > 0, "El archivo USDZ de Reservas del Lago está vacío");
+const realPropertyFiles = [
+  "assets/images/properties/local-rodolfo.jpg",
+  "assets/images/properties/lote-san-sebastian.jpg",
+  "assets/images/properties/altos-san-sebastian.jpg",
+  "assets/images/properties/edificio-yarumo.jpg",
+];
+for (const file of realPropertyFiles) {
+  const metadata = await stat(path.join(root, file));
+  assert.ok(metadata.size > 0, `${file} está vacío`);
+}
+
+const homePage = await readFile(path.join(root, "index.html"), "utf8");
+for (const name of ["Local Rodolfo", "Lote en San Sebastián", "Altos de San Sebastián", "Edificio Yarumo"]) {
+  assert.match(homePage, new RegExp(name), `Falta ${name} en el catálogo`);
+}
+assert.match(homePage, /id="casas"[^>]+hidden/);
+assert.match(homePage, /id="lotes"[^>]+hidden/);
+assert.match(homePage, /id="sobreplano"[^>]+hidden/);
 
 assert.deepEqual(errors, [], `Errores del sitio público:\n${errors.join("\n")}`);
 console.info(`Verificados ${htmlFiles.length} documentos HTML, sus enlaces, recursos y anclas.`);
-console.info("WhatsApp 573176740334 y experiencia 3D/AR de Reservas del Lago verificados.");
+console.info("Catálogo real, portadas optimizadas y WhatsApp 573176740334 verificados.");

@@ -7,6 +7,9 @@ node_modules/
 dist/
 public/
 coverage/
+/media-ready/
+/tmp-media-review/
+/(null)/
 *.tsbuildinfo
 .env
 .env.*

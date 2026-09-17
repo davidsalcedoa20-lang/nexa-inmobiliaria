@@ -28,9 +28,7 @@
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <ul class="nav__list">
           <li><a href="#inicio" class="nav__link is-active">Inicio</a></li>
-          <li><a href="#casas" class="nav__link">Casas</a></li>
-          <li><a href="#lotes" class="nav__link">Lotes</a></li>
-          <li><a href="#sobreplano" class="nav__link">Sobreplano</a></li>
+          <li><a href="#propiedades" class="nav__link">Propiedades</a></li>
           <li><a href="#nosotros" class="nav__link">Nosotros</a></li>
           <li><a href="#contacto" class="nav__link">Contacto</a></li>
         </ul>
@@ -64,9 +62,9 @@
           <span class="hero__title-line hero__title-line--white">Más que terrenos,</span>
           <span class="hero__title-line hero__title-line--gold">proyectos de vida.</span>
         </h1>
-        <p class="hero__subtitle">Encuentra propiedades, explora viviendas en 3D y visualiza tu proyecto sobre el terreno antes de construir.</p>
+        <p class="hero__subtitle">Conoce propiedades reales en Pamplona mediante recorridos, imágenes y visualizaciones de cada proyecto.</p>
         <div class="hero__actions">
-          <a href="#casas" class="btn btn--gold">Explorar propiedades</a>
+          <a href="#propiedades" class="btn btn--gold">Explorar propiedades</a>
           <a href="#tecnologia" class="btn btn--ghost">
             <span class="btn__play" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -85,9 +83,9 @@
             <span class="search-panel__label">Explorar</span>
             <div class="search-panel__tabs" role="group" aria-label="Tipo de propiedad">
               <button type="button" class="search-panel__tab is-active" data-search-category="all">Todo</button>
-              <button type="button" class="search-panel__tab" data-search-category="casas">Casas</button>
+              <button type="button" class="search-panel__tab" data-search-category="locales">Locales</button>
               <button type="button" class="search-panel__tab" data-search-category="lotes">Lotes</button>
-              <button type="button" class="search-panel__tab" data-search-category="sobreplano">Sobreplano</button>
+              <button type="button" class="search-panel__tab" data-search-category="proyectos">Proyectos</button>
             </div>
             <input id="search-que" name="que" type="hidden" value="all">
           </div>
@@ -99,10 +97,8 @@
             <div class="search-panel__select-wrap">
               <select id="search-ubicacion" name="ubicacion" class="search-panel__select">
                 <option value="todas" selected>Todas las ubicaciones</option>
-                <option value="el-encanto">Condominio El Encanto</option>
-                <option value="monte-verde">Condominio Monte Verde</option>
-                <option value="reservas-del-lago">Reservas del Lago Country House</option>
-                <option value="cucuta">Cúcuta</option>
+                <option value="pamplona">Pamplona</option>
+                <option value="san-sebastian">San Sebastián</option>
               </select>
               <span class="search-panel__chevron" aria-hidden="true"></span>
             </div>
@@ -116,7 +112,7 @@
               <select id="search-tipo" name="tipo" class="search-panel__select">
                 <option value="todos" selected>Todos los estados</option>
                 <option value="disponible">Disponible</option>
-                <option value="proximo">Próximamente</option>
+                <option value="en-desarrollo">En desarrollo</option>
               </select>
               <span class="search-panel__chevron" aria-hidden="true"></span>
             </div>
@@ -159,9 +155,9 @@
         </header>
 
         <div class="categories__grid">
-          <a href="#casas" class="category-card reveal">
-            <div class="category-card__media img-placeholder" role="img" aria-label="Imagen próxima — Casas">
-              <span class="img-placeholder__label">IMAGEN PRÓXIMAMENTE</span>
+          <a href="#propiedades" class="category-card reveal">
+            <div class="category-card__media img-placeholder has-image" role="img" aria-label="Local Rodolfo en el centro de Pamplona">
+              <img src="assets/images/properties/local-rodolfo.jpg" alt="Local Rodolfo en el centro de Pamplona" loading="lazy">
               <div class="category-card__overlay" aria-hidden="true"></div>
             </div>
             <div class="category-card__content">
@@ -170,15 +166,15 @@
                   <path d="M4 11.5L12 5l8 6.5V20a1 1 0 0 1-1 1h-5v-5H10v5H5a1 1 0 0 1-1-1v-8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <h3 class="category-card__title">Casas</h3>
-              <p class="category-card__text">Viviendas terminadas disponibles<br>para venta y entrega.</p>
-              <span class="btn btn--white">Ver casas</span>
+              <h3 class="category-card__title">Locales</h3>
+              <p class="category-card__text">Oportunidades comerciales con<br>material audiovisual real.</p>
+              <span class="btn btn--white">Ver local</span>
             </div>
           </a>
 
-          <a href="#lotes" class="category-card reveal">
-            <div class="category-card__media img-placeholder" role="img" aria-label="Imagen próxima — Lotes">
-              <span class="img-placeholder__label">IMAGEN PRÓXIMAMENTE</span>
+          <a href="#propiedades" class="category-card reveal">
+            <div class="category-card__media img-placeholder has-image" role="img" aria-label="Lote en San Sebastián">
+              <img src="assets/images/properties/lote-san-sebastian.jpg" alt="Acceso al conjunto San Sebastián" loading="lazy">
               <div class="category-card__overlay" aria-hidden="true"></div>
             </div>
             <div class="category-card__content">
@@ -189,14 +185,14 @@
                 </svg>
               </span>
               <h3 class="category-card__title">Lotes</h3>
-              <p class="category-card__text">Lotes urbanizados en condominios<br>exclusivos, listos para construir.</p>
-              <span class="btn btn--white">Ver lotes</span>
+              <p class="category-card__text">Lote esquinero de 98 m²<br>en San Sebastián.</p>
+              <span class="btn btn--white">Ver lote</span>
             </div>
           </a>
 
-          <a href="#sobreplano" class="category-card reveal">
-            <div class="category-card__media img-placeholder" role="img" aria-label="Imagen próxima — Sobreplano">
-              <span class="img-placeholder__label">IMAGEN PRÓXIMAMENTE</span>
+          <a href="#propiedades" class="category-card reveal">
+            <div class="category-card__media img-placeholder has-image" role="img" aria-label="Proyecto Edificio Yarumo">
+              <img src="assets/images/properties/edificio-yarumo.jpg" alt="Visualización del Edificio Yarumo" loading="lazy">
               <div class="category-card__overlay" aria-hidden="true"></div>
             </div>
             <div class="category-card__content">
@@ -206,9 +202,9 @@
                   <path d="M10 20v-5h4v5M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <h3 class="category-card__title">Sobreplano</h3>
-              <p class="category-card__text">Lote y vivienda predeterminada<br>como un solo proyecto.</p>
-              <span class="btn btn--white">Ver sobreplano</span>
+              <h3 class="category-card__title">Proyectos</h3>
+              <p class="category-card__text">Altos de San Sebastián<br>y Edificio Yarumo.</p>
+              <span class="btn btn--white">Ver proyectos</span>
             </div>
           </a>
         </div>
@@ -246,7 +242,7 @@
     </section>
 
     <!-- ========== CATÁLOGO CASAS ========== -->
-    <section class="featured section" id="casas" aria-labelledby="casas-title">
+    <section class="featured section" id="casas" aria-labelledby="casas-title" hidden>
       <div class="container">
         <header class="section-header section-header--row reveal">
           <h2 class="section-title" id="casas-title">Casas</h2>
@@ -338,7 +334,7 @@
     </section>
 
     <!-- ========== CATÁLOGO LOTES ========== -->
-    <section class="featured section" id="lotes" aria-labelledby="lotes-title">
+    <section class="featured section" id="lotes" aria-labelledby="lotes-title" hidden>
       <div class="container">
         <header class="section-header section-header--row reveal">
           <h2 class="section-title" id="lotes-title">Lotes</h2>
@@ -441,7 +437,7 @@
       </div>
     </section>
 
-    <section class="lot-journey section" id="experiencia-lote" aria-labelledby="lot-journey-title">
+    <section class="lot-journey section" id="experiencia-lote" aria-labelledby="lot-journey-title" hidden>
       <div class="container lot-journey__grid">
         <div class="lot-journey__visual reveal">
           <img src="assets/images/lote-reservas-del-lago.png" alt="Vista del lote de 179 metros cuadrados en Reservas del Lago">
@@ -463,7 +459,7 @@
     </section>
 
     <!-- ========== CATÁLOGO SOBREPLANO ========== -->
-    <section class="featured section" id="sobreplano" aria-labelledby="sobreplano-title">
+    <section class="featured section" id="sobreplano" aria-labelledby="sobreplano-title" hidden>
       <div class="container">
         <header class="section-header section-header--row reveal">
           <div>
@@ -587,6 +583,78 @@
                   <a href="pages/sobreplano-detalle.html?id=reserva-campestre" class="btn btn--outline btn--sm">Ver proyecto</a>
                   <a href="pages/sobreplano-detalle.html?id=reserva-campestre#proyecto-incluido" class="btn btn--gold btn--sm">Explorar proyecto</a>
                 </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROPIEDADES REALES ========== -->
+    <section class="featured section" id="propiedades" aria-labelledby="propiedades-title">
+      <div class="container">
+        <header class="section-header section-header--row reveal is-visible">
+          <div>
+            <p class="section-eyebrow">Catálogo verificado</p>
+            <h2 class="section-title" id="propiedades-title">Propiedades disponibles</h2>
+            <p class="section-subtitle" style="margin-top:10px">Únicamente inmuebles respaldados por el contenido recibido.</p>
+          </div>
+        </header>
+        <div class="featured__wrap">
+          <div class="featured__grid">
+            <article class="property-card reveal is-visible" data-category="locales" data-location="pamplona" data-status="disponible" data-price="0">
+              <a href="pages/propiedad.html?id=local-rodolfo" class="property-card__media img-placeholder has-image" aria-label="Ver Local Rodolfo">
+                <img src="assets/images/properties/local-rodolfo.jpg" alt="Local Rodolfo en el centro de Pamplona" loading="lazy">
+                <span class="property-card__badge">Local comercial</span>
+              </a>
+              <div class="property-card__body">
+                <h3 class="property-card__title"><a href="pages/propiedad.html?id=local-rodolfo">Local Rodolfo</a></h3>
+                <p class="property-card__location">Centro de Pamplona, Norte de Santander</p>
+                <ul class="property-card__specs"><li>Ubicación céntrica</li><li>Video real</li></ul>
+                <p class="property-card__price">Valor por confirmar</p>
+                <div class="property-card__actions"><a href="pages/propiedad.html?id=local-rodolfo" class="btn btn--outline btn--sm">Ver propiedad</a><a href="https://wa.me/573176740334" class="btn btn--gold btn--sm" data-whatsapp data-whatsapp-message="Hola Andrés, quiero información sobre Local Rodolfo.">Consultar</a></div>
+              </div>
+            </article>
+
+            <article class="property-card reveal is-visible" data-category="lotes" data-location="san-sebastian" data-status="disponible" data-price="0">
+              <a href="pages/propiedad.html?id=lote-san-sebastian" class="property-card__media img-placeholder has-image" aria-label="Ver lote en San Sebastián">
+                <img src="assets/images/properties/lote-san-sebastian.jpg" alt="Acceso al conjunto San Sebastián" loading="lazy">
+                <span class="property-card__badge">Lote esquinero</span>
+              </a>
+              <div class="property-card__body">
+                <h3 class="property-card__title"><a href="pages/propiedad.html?id=lote-san-sebastian">Lote en San Sebastián</a></h3>
+                <p class="property-card__location">San Sebastián, Pamplona</p>
+                <ul class="property-card__specs"><li>98 m²</li><li>7 × 14 m</li></ul>
+                <p class="property-card__price">Valor por confirmar</p>
+                <div class="property-card__actions"><a href="pages/propiedad.html?id=lote-san-sebastian" class="btn btn--outline btn--sm">Ver lote</a><a href="https://wa.me/573176740334" class="btn btn--gold btn--sm" data-whatsapp data-whatsapp-message="Hola Andrés, quiero información sobre el lote de San Sebastián.">Consultar</a></div>
+              </div>
+            </article>
+
+            <article class="property-card reveal is-visible" data-category="proyectos" data-location="san-sebastian" data-status="en-desarrollo" data-price="0">
+              <a href="pages/propiedad.html?id=altos-san-sebastian" class="property-card__media img-placeholder has-image" aria-label="Ver Altos de San Sebastián">
+                <img src="assets/images/properties/altos-san-sebastian.jpg" alt="Edificio Altos de San Sebastián" loading="lazy">
+                <span class="property-card__badge">En desarrollo</span>
+              </a>
+              <div class="property-card__body">
+                <h3 class="property-card__title"><a href="pages/propiedad.html?id=altos-san-sebastian">Altos de San Sebastián</a></h3>
+                <p class="property-card__location">San Sebastián, Pamplona</p>
+                <ul class="property-card__specs"><li>Apartamentos</li><li>Parqueadero</li></ul>
+                <p class="property-card__price">Valor por confirmar</p>
+                <div class="property-card__actions"><a href="pages/propiedad.html?id=altos-san-sebastian" class="btn btn--outline btn--sm">Ver proyecto</a><a href="https://wa.me/573176740334" class="btn btn--gold btn--sm" data-whatsapp data-whatsapp-message="Hola Andrés, quiero información sobre Altos de San Sebastián.">Consultar</a></div>
+              </div>
+            </article>
+
+            <article class="property-card reveal is-visible" data-category="proyectos" data-location="pamplona" data-status="en-desarrollo" data-price="0">
+              <a href="pages/propiedad.html?id=edificio-yarumo" class="property-card__media img-placeholder has-image" aria-label="Ver Edificio Yarumo">
+                <img src="assets/images/properties/edificio-yarumo.jpg" alt="Visualización del Edificio Yarumo" loading="lazy">
+                <span class="property-card__badge">Proyecto residencial</span>
+              </a>
+              <div class="property-card__body">
+                <h3 class="property-card__title"><a href="pages/propiedad.html?id=edificio-yarumo">Edificio Yarumo</a></h3>
+                <p class="property-card__location">Pamplona, Norte de Santander</p>
+                <ul class="property-card__specs"><li>3 habitaciones</li><li>2 baños</li></ul>
+                <p class="property-card__price">Valor por confirmar</p>
+                <div class="property-card__actions"><a href="pages/propiedad.html?id=edificio-yarumo" class="btn btn--outline btn--sm">Ver proyecto</a><a href="https://wa.me/573176740334" class="btn btn--gold btn--sm" data-whatsapp data-whatsapp-message="Hola Andrés, quiero información sobre Edificio Yarumo.">Consultar</a></div>
               </div>
             </article>
           </div>

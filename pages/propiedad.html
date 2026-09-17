@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Propiedad disponible con Andrés Lizcano Ingeniería + Inversión.">
+  <title>Propiedad | Andrés Lizcano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/redesign.css">
+  <link rel="stylesheet" href="../css/propiedad.css">
+</head>
+<body data-page="property">
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="../index.html" class="logo" aria-label="Andrés Lizcano — Inicio">
+        <span class="logo__mark" aria-hidden="true"><span class="logo__monogram">AL</span></span>
+        <span class="logo__text"><span class="logo__name">ANDRÉS LIZCANO</span><span class="logo__tag">INGENIERÍA + INVERSIÓN</span></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navegación principal">
+        <ul class="nav__list">
+          <li><a href="../index.html" class="nav__link">Inicio</a></li>
+          <li><a href="../index.html#propiedades" class="nav__link is-active">Propiedades</a></li>
+          <li><a href="../index.html#nosotros" class="nav__link">Nosotros</a></li>
+          <li><a href="#contacto" class="nav__link">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <a href="https://wa.me/573176740334" class="header__whatsapp" data-whatsapp data-property-whatsapp aria-label="Hablar con Andrés por WhatsApp"><span>Asesoría</span></a>
+        <button class="header__menu" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><span class="header__menu-bar"></span><span class="header__menu-bar"></span><span class="header__menu-bar"></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="property-page">
+    <section class="property-hero">
+      <div class="container property-hero__grid">
+        <div class="property-hero__media"><img id="propertyImage" src="" alt=""></div>
+        <aside class="property-summary">
+          <span class="property-summary__eyebrow" id="propertyType"></span>
+          <span class="property-summary__status" id="propertyStatus"></span>
+          <h1 class="property-summary__title" id="propertyName"></h1>
+          <p class="property-summary__location" id="propertyLocation"></p>
+          <p class="property-summary__text" id="propertySummary"></p>
+          <ul class="property-summary__specs" id="propertySpecs"></ul>
+          <span class="property-summary__price-label">Información comercial</span>
+          <p class="property-summary__price" id="propertyPrice"></p>
+          <div class="property-summary__actions">
+            <a href="#recorrido" class="btn btn--gold btn--block">Ver recorrido</a>
+            <a href="https://wa.me/573176740334" class="btn btn--ghost-light btn--block" data-whatsapp data-property-whatsapp>Solicitar información</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="property-content">
+      <div class="container property-content__grid">
+        <div>
+          <p class="section-eyebrow">Información comprobada</p>
+          <h2 class="section-title">Sobre la propiedad</h2>
+          <p class="property-copy" id="propertyDescription"></p>
+        </div>
+        <ul class="property-facts" id="propertyDetails"></ul>
+      </div>
+    </section>
+
+    <section class="property-video" id="recorrido">
+      <div class="container">
+        <header class="property-video__head">
+          <p class="section-eyebrow">Material real de la carpeta de contenido</p>
+          <h2 class="section-title" id="videoTitle">Recorrido de la propiedad</h2>
+        </header>
+        <video class="property-video__player" id="propertyVideo" controls playsinline preload="metadata"></video>
+        <p class="property-video__note">Video optimizado para web. La calidad se adapta al dispositivo y a la conexión disponible.</p>
+      </div>
+    </section>
+
+    <section class="cta-section section" id="contacto">
+      <div class="container">
+        <div class="cta reveal">
+          <div class="cta__content"><h2 class="cta__title">¿Quieres conocer esta propiedad?</h2><p class="cta__subtitle">Escríbenos y confirma disponibilidad, precio y condiciones.</p></div>
+          <a href="https://wa.me/573176740334" class="btn btn--gold cta__btn" data-whatsapp data-property-whatsapp>Hablar por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer__inner"><p class="footer__copy">&copy; <span id="year"></span> Andrés Lizcano · Ingeniería + Inversión.</p></div></footer>
+  <script src="../js/propiedades-data.js" defer></script>
+  <script src="../js/propiedad.js" defer></script>
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

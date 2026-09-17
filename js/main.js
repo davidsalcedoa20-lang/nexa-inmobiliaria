@@ -74,10 +74,7 @@
   if (isHome) {
     const sections = [
       { id: "inicio" },
-      { id: "casas" },
-      { id: "lotes" },
-      { id: "proyectos" },
-      { id: "sobreplano" },
+      { id: "propiedades" },
       { id: "nosotros" },
       { id: "contacto" },
     ];
@@ -98,9 +95,7 @@
         if (href.includes(".html")) return;
         const match =
           (current === "inicio" && href === "#inicio") ||
-          (current === "casas" && href === "#casas") ||
-          (current === "lotes" && href === "#lotes") ||
-          ((current === "sobreplano" || current === "proyectos") && (href === "#sobreplano" || href === "#proyectos")) ||
+          (current === "propiedades" && href === "#propiedades") ||
           (current === "nosotros" && href === "#nosotros") ||
           (current === "contacto" && href === "#contacto");
         link.classList.toggle("is-active", match);
@@ -129,6 +124,13 @@
   } else {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
+
+  /* Recalcula el salto de ancla cuando estilos e imágenes ya están listos. */
+  window.addEventListener("load", () => {
+    if (!window.location.hash) return;
+    const anchor = document.querySelector(window.location.hash);
+    anchor?.scrollIntoView({ block: "start" });
+  });
 
   /* ---------- Favorites (persistencia local, sin cuenta de usuario) ---------- */
   document.querySelectorAll(".property-card__fav").forEach((btn) => {
@@ -187,7 +189,7 @@
       const status = document.getElementById("search-tipo")?.value || "todos";
       const maxPriceValue = document.getElementById("search-precio")?.value || "cualquiera";
       const maxPrice = maxPriceValue === "cualquiera" ? Infinity : Number(maxPriceValue);
-      const cards = document.querySelectorAll(".property-card[data-category]");
+      const cards = document.querySelectorAll("#propiedades .property-card[data-category]");
       let matches = 0;
 
       cards.forEach((card) => {
@@ -201,8 +203,7 @@
         if (visible) matches += 1;
       });
 
-      const targetId = category === "all" ? "casas" : category;
-      const target = document.getElementById(targetId);
+      const target = document.getElementById("propiedades");
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       }
