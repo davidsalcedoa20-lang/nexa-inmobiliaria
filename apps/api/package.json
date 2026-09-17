@@ -6,7 +6,7 @@
   "main": "./dist/server.js",
   "scripts": {
     "dev": "node --env-file-if-exists=../../.env --import tsx --watch src/server.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "start": "node dist/server.js",
     "test": "vitest run"

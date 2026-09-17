@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run build -w @nexa/api && npm run build -w @nexa/admin",
+    "build:public": "node scripts/build-public-site.mjs",
     "typecheck": "npm run build -w @nexa/contracts && npm run build -w @nexa/database && npm run typecheck -w @nexa/api && npm run typecheck -w @nexa/admin && npm run typecheck -w @nexa/worker",
     "test": "npm run test --workspaces --if-present",
     "verify:public": "node scripts/verify-public-site.mjs",

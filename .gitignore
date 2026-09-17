@@ -5,6 +5,7 @@ node_modules/
 
 .vercel
 dist/
+public/
 coverage/
 *.tsbuildinfo
 .env
