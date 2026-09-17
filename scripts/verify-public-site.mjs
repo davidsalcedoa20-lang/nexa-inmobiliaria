@@ -8,6 +8,7 @@ const htmlFiles = [
   "pages/casa.html",
   "pages/lote.html",
   "pages/lote-reservas-del-lago.html",
+  "pages/avaluos-peritajes.html",
   "pages/propiedad.html",
   "pages/proyecto.html",
   "pages/proyectos.html",
@@ -86,6 +87,7 @@ assert.match(homePage, /id="casas"[^>]+hidden/);
 assert.match(homePage, /id="lotes"[^>]+hidden/);
 assert.match(homePage, /id="sobreplano"[^>]+hidden/);
 assert.match(homePage, /id="experiencia-3d"/);
+assert.match(homePage, /pages\/avaluos-peritajes\.html/);
 assert.match(homePage, /<model-viewer[\s\S]+assets\/models\/casa-modelo\.glb/);
 for (const model of ["assets/models/casa-modelo.glb", "assets/models/casa-modelo.usdz"]) {
   const metadata = await stat(path.join(root, model));

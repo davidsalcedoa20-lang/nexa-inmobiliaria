@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Avalúos, peritajes y consultorías técnicas con Andrés Lizcano Ingeniería + Inversión.">
+  <title>Avalúos y peritajes | Andrés Lizcano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/redesign.css">
+  <link rel="stylesheet" href="../css/avaluos-peritajes.css">
+</head>
+<body data-page="avaluos">
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="../index.html" class="logo" aria-label="Andrés Lizcano — Inicio">
+        <span class="logo__mark" aria-hidden="true"><span class="logo__monogram">AL</span></span>
+        <span class="logo__text"><span class="logo__name">ANDRÉS LIZCANO</span><span class="logo__tag">INGENIERÍA + INVERSIÓN</span></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navegación principal">
+        <ul class="nav__list">
+          <li><a href="../index.html" class="nav__link">Inicio</a></li>
+          <li><a href="../index.html#propiedades" class="nav__link">Propiedades</a></li>
+          <li><a href="avaluos-peritajes.html" class="nav__link is-active">Avalúos y peritajes</a></li>
+          <li><a href="../index.html#nosotros" class="nav__link">Nosotros</a></li>
+          <li><a href="#contacto" class="nav__link">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <a href="https://wa.me/573176740334" class="header__whatsapp" data-whatsapp data-whatsapp-message="Hola Andrés, quiero información sobre avalúos y peritajes." aria-label="Hablar con Andrés por WhatsApp"><span>Asesoría</span></a>
+        <button class="header__menu" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><span class="header__menu-bar"></span><span class="header__menu-bar"></span><span class="header__menu-bar"></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="services-page">
+    <section class="services-hero" aria-labelledby="services-title">
+      <div class="container services-hero__grid">
+        <div class="services-hero__copy">
+          <p class="section-eyebrow">Servicios técnicos</p>
+          <h1 id="services-title">Avalúos y peritajes con respaldo profesional</h1>
+          <p>Recibe orientación técnica para tomar decisiones informadas sobre inmuebles, obras, estructuras y terrenos.</p>
+          <div class="services-hero__actions">
+            <a href="#diagnostico" class="btn btn--gold">Solicitar diagnóstico</a>
+            <a href="#servicios" class="btn services-hero__outline">Ver servicios</a>
+          </div>
+          <p class="services-hero__trust">TÉCNICA &nbsp;|&nbsp; CONFIANZA &nbsp;|&nbsp; MAYOR VALOR</p>
+        </div>
+        <div class="services-hero__visual" aria-label="Planos y herramientas de evaluación técnica">
+          <img src="../assets/images/casa-modelo-render.png" alt="Visualización arquitectónica sobre plano técnico" loading="eager">
+          <span class="services-hero__stamp">ANÁLISIS<br>EXPERIENCIA<br>RESPALDO</span>
+          <span class="services-hero__drawing" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-list section" id="servicios" aria-labelledby="services-list-title">
+      <div class="container">
+        <h2 class="visually-hidden" id="services-list-title">Servicios disponibles</h2>
+        <div class="services-list__grid" id="serviceCards">
+          <button type="button" class="service-card is-selected" data-service="Avalúos inmobiliarios" data-description="Valoración técnica y comercial de inmuebles."><span class="service-card__icon">⌂</span><span><strong>Avalúos inmobiliarios</strong><small>Valoraciones precisas y sustentadas técnicamente.</small></span><b>›</b></button>
+          <button type="button" class="service-card" data-service="Peritajes técnicos" data-description="Diagnóstico técnico de daños, patologías o condiciones de obra."><span class="service-card__icon">▧</span><span><strong>Peritajes técnicos</strong><small>Dictámenes con rigor profesional y normativo.</small></span><b>›</b></button>
+          <button type="button" class="service-card" data-service="Consultoría arquitectónica" data-description="Orientación para diseño, remodelación y distribución de espacios."><span class="service-card__icon">△</span><span><strong>Consultoría arquitectónica</strong><small>Análisis, conceptos y acompañamiento en proyectos.</small></span><b>›</b></button>
+          <button type="button" class="service-card" data-service="Consultoría estructural" data-description="Revisión técnica de estructuras existentes o proyectadas."><span class="service-card__icon">╫</span><span><strong>Consultoría estructural</strong><small>Evaluación y diagnóstico de estructuras.</small></span><b>›</b></button>
+          <button type="button" class="service-card" data-service="Estudios de suelos" data-description="Caracterización del terreno para decisiones seguras."><span class="service-card__icon">▤</span><span><strong>Estudios de suelos</strong><small>Caracterización del terreno para decisiones seguras.</small></span><b>›</b></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="diagnostic section" id="diagnostico" aria-labelledby="diagnostic-title">
+      <div class="container">
+        <form class="diagnostic-panel" id="diagnosticForm" novalidate>
+          <div class="diagnostic-panel__head">
+            <div><p class="section-eyebrow">Solicitud guiada</p><h2 class="section-title" id="diagnostic-title">Cuéntanos qué necesitas</h2><p>Te guiaremos paso a paso para preparar una asesoría útil.</p></div>
+            <ol class="diagnostic-steps" aria-label="Progreso de la solicitud">
+              <li class="is-active"><span>1</span>Servicio</li><li><span>2</span>Inmueble</li><li><span>3</span>Información</li><li><span>4</span>Documentos</li><li><span>5</span>Contacto</li>
+            </ol>
+          </div>
+
+          <div class="diagnostic-panel__body">
+            <section class="diagnostic-step is-active" data-step="1">
+              <p class="diagnostic-question">Selecciona el servicio que necesitas</p>
+              <div class="service-options" id="serviceOptions"></div>
+            </section>
+            <section class="diagnostic-step" data-step="2" hidden>
+              <p class="diagnostic-question">Cuéntanos sobre el inmueble o terreno</p>
+              <div class="diagnostic-fields"><label>Tipo de inmueble<select name="tipo"><option value="Casa">Casa</option><option value="Apartamento">Apartamento</option><option value="Local comercial">Local comercial</option><option value="Edificio">Edificio</option><option value="Lote o terreno">Lote o terreno</option><option value="Otro">Otro</option></select></label><label>Ciudad o municipio<input name="ubicacion" autocomplete="address-level2" placeholder="Ej. Pamplona"></label><label>Área aproximada<input name="area" inputmode="decimal" placeholder="Ej. 120 m²"></label></div>
+            </section>
+            <section class="diagnostic-step" data-step="3" hidden>
+              <p class="diagnostic-question">Describe brevemente lo que necesitas</p>
+              <div class="diagnostic-fields diagnostic-fields--one"><label>Finalidad o situación<textarea name="detalle" rows="5" placeholder="Ej. Necesito un avalúo para venta, una revisión de grietas o asesoría para construir."></textarea></label></div>
+            </section>
+            <section class="diagnostic-step" data-step="4" hidden>
+              <p class="diagnostic-question">Prepara documentos o fotografías relevantes</p>
+              <label class="document-drop"><input type="file" id="documents" multiple accept="image/*,.pdf,.dwg"><span>＋</span><strong>Seleccionar archivos</strong><small>Planos, fotografías, certificados o documentos técnicos.</small></label><p class="document-note" id="documentNote">Los archivos se revisarán directamente con el asesor; podrás adjuntarlos al abrir la conversación.</p>
+            </section>
+            <section class="diagnostic-step" data-step="5" hidden>
+              <p class="diagnostic-question">¿Cómo podemos contactarte?</p>
+              <div class="diagnostic-fields"><label>Nombre<input name="nombre" autocomplete="name" required placeholder="Tu nombre"></label><label>Teléfono<input name="telefono" autocomplete="tel" inputmode="tel" required placeholder="Tu teléfono"></label><label>Correo (opcional)<input name="correo" autocomplete="email" type="email" placeholder="tu@correo.com"></label></div>
+            </section>
+          </div>
+
+          <div class="diagnostic-panel__footer"><p id="diagnosticStatus" aria-live="polite">Servicio seleccionado: <strong>Avalúos inmobiliarios</strong></p><div><button type="button" class="btn diagnostic-back" id="previousStep" hidden>Volver</button><button type="button" class="btn btn--gold" id="nextStep">Siguiente <span aria-hidden="true">→</span></button></div></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="cta-section section" id="contacto"><div class="container"><div class="cta reveal is-visible"><div class="cta__content"><h2 class="cta__title">¿Prefieres hablar directamente?</h2><p class="cta__subtitle">Escríbenos y revisamos tu caso de forma personalizada.</p></div><a href="https://wa.me/573176740334" class="btn btn--gold cta__btn" data-whatsapp data-whatsapp-message="Hola Andrés, quiero información sobre avalúos y peritajes.">Hablar por WhatsApp</a></div></div></section>
+  </main>
+  <footer class="footer"><div class="container footer__inner"><p class="footer__copy">© <span id="year"></span> Andrés Lizcano · Ingeniería + Inversión.</p></div></footer>
+  <script src="../js/avaluos-peritajes.js" defer></script>
+  <script src="../js/main.js" defer></script>
+</body>
+</html>
