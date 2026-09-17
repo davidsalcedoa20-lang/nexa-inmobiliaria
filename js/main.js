@@ -11,6 +11,17 @@
   const yearEl = document.getElementById("year");
   const featuredNext = document.getElementById("featuredNext");
 
+  /* ---------- WhatsApp ---------- */
+  const whatsappNumber = "573176740334";
+  document.querySelectorAll("[data-whatsapp]").forEach((link) => {
+    const message =
+      link.dataset.whatsappMessage ||
+      `Hola Andrés, quiero recibir asesoría sobre ${document.title}.`;
+    link.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  });
+
   /* ---------- Year ---------- */
   if (yearEl) {
     yearEl.textContent = String(new Date().getFullYear());

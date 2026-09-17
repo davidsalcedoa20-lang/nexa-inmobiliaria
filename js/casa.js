@@ -165,6 +165,8 @@
   if (viewer) {
     viewer.dataset.glb = casa.glb || "";
     viewer.dataset.usdz = casa.usdz || "";
+    viewer.querySelector(".viewer-shell__tools")?.toggleAttribute("hidden", !casa.glb);
+    viewer.querySelector(".viewer-shell__modes")?.toggleAttribute("hidden", !casa.glb);
   }
 
   const btn3D = document.getElementById("btnCasa3D");
